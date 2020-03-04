@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+   <extension point="org.eclipse.ui.editors">
+      <editor
+            name="Rexx Editor"
+            extensions="rex, jrex, rexx, cls, rxj, testUnit"
+            icon="icons/rexxLogo.GIF"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            class="org.imperfectmommy.rexxeditor.editors.RexxEditor"
+            id="rexxeditor.editors.RexxEditor">
+      </editor>
+   </extension>
+   <extension point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType delegate="org.imperfectmommy.rexxeditor.launcher.RexxLaunchConfigurationDelegate"
+            id="rexxeditor.launchConfigurationType" modes="run" name="RexxApplication" public="true">
+   	  </launchConfigurationType>
+   </extension>
+   <extension point="org.eclipse.debug.ui.launchShortcuts">
+    <shortcut
+        id="rexxeditor.rexxLaunchShortcut"
+        class="org.imperfectmommy.rexxeditor.launcher.RexxLaunchShortcut"
+        label="Rexx program"
+        icon="icons/rexxLogo.GIF"
+        modes="run">
+    </shortcut>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            name="Rexx Preferences"
+            class="org.imperfectmommy.rexxeditor.preferences.RexxPreferencePage"
+            id="rexxeditor.preferences.RexxPreferencePage">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="rexxeditor"
+            name="Rexx Wizards"/>
+      <wizard
+            name="ooRexx file"
+            icon="icons/rexxLogo.GIF"
+            category="rexxeditor"
+            class="org.imperfectmommy.rexxeditor.wizards.RexxNewWizard"
+            id="rexxeditor.wizards.SampleNewWizard">
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            class="org.imperfectmommy.rexxeditor.launcher.RexxLaunchConfigurationTabGroup"
+            id="rexxeditor.launcher.RexxLaunchConfigurationTabGroup"
+            type="rexxeditor.launchConfigurationType">
+         <launchMode mode="run"/>
+      </launchConfigurationTabGroup>
+   </extension>
+   
+	<extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+	    <launchConfigurationTypeImage
+	        icon="icons/rexxLogo.GIF"
+	        configTypeID="rexxeditor.launchConfigurationType"
+	        id="rexxeditor.launchConfigurationTypeImage">
+	    </launchConfigurationTypeImage>
+	</extension>
+
+</plugin>
