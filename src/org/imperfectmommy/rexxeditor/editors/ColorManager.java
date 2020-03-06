@@ -16,12 +16,9 @@ import org.eclipse.swt.widgets.Display;
 
 public class ColorManager {
 
-//	protected Map<RGB, Color> fColorTable = new HashMap<>(10);
-//
-//	private Map<String, Token> tokenTable = new HashMap<>(10);
-	protected Map fColorTable = new HashMap<>(10);
+	protected Map fColorTable = new HashMap(10);
 
-	private Map tokenTable = new HashMap<>(10);
+	private Map tokenTable = new HashMap(10);
 
 	private final IPreferenceStore preferenceStore;
 
@@ -30,7 +27,7 @@ public class ColorManager {
 	}
 
 	public void dispose() {
-		Iterator<Color> e = fColorTable.values().iterator();
+		Iterator e = fColorTable.values().iterator();
 		while (e.hasNext())
 			((Color) e.next()).dispose();
 	}
