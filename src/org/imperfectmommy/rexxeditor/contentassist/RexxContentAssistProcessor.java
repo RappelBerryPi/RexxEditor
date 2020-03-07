@@ -1,10 +1,13 @@
 package org.imperfectmommy.rexxeditor.contentassist;
 
+import java.io.IOException;
+import java.net.URL;
+
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.Region;
-import org.eclipse.jface.text.contentassist.CompletionProposal;
 import org.eclipse.jface.text.contentassist.ContextInformation;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
@@ -15,10 +18,10 @@ import org.eclipse.jface.text.templates.TemplateBuffer;
 import org.eclipse.jface.text.templates.TemplateContext;
 import org.eclipse.jface.text.templates.TemplateContextType;
 import org.eclipse.jface.text.templates.TemplateException;
-import org.eclipse.jface.text.templates.TemplateProposal;
 import org.eclipse.jface.text.templates.TemplateVariable;
 import org.eclipse.jface.text.templates.TemplateVariableResolver;
 import org.eclipse.swt.graphics.Image;
+import org.osgi.framework.Bundle;
 
 public class RexxContentAssistProcessor implements IContentAssistProcessor {
 
@@ -31,22 +34,22 @@ public class RexxContentAssistProcessor implements IContentAssistProcessor {
     @Override
     public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer, int offset) {
         //TODO: Finish creating mapping function for a function to a the display information and stuff....
-        Template template = new Template("POS(Needle,Haystack)","***INFO***","no-context","POS(Needle,Haystack)",false);
+        RexxCompletionProposal proposal = buildCompletionProposalFromKey("POS(Needle,Haystack)", viewer, offset);
+        RexxCompletionProposal proposal2 = buildCompletionProposalFromKey("POS(Needle,Haystack,Start)", viewer, offset);
+        return new ICompletionProposal[] { proposal, proposal2 };
+    }
+
+    private RexxCompletionProposal buildCompletionProposalFromKey(String string, ITextViewer viewer, int offset) {
+        RexxFunctionProposalData data = RexxFunctionProposalData.getRexxFunctionProposalData(string);
+        Template template = data.getTemplate();
         TemplateContextType type = new TemplateContextType();
-        TemplateVariableResolver resolver;
-        resolver = new TemplateVariableResolver();
-        resolver.setType("String");
-        resolver.setDescription("hello World!");
-        type.addResolver(resolver);
+        type.addResolver(new TemplateVariableResolver());
         TemplateContext context = new TemplateContext(type) {
             
             @Override
             public TemplateBuffer evaluate(Template template) throws BadLocationException, TemplateException {
-                TemplateVariable[] varsTemplateVariables = new TemplateVariable[2];
-                varsTemplateVariables[0] = new TemplateVariable("String", "needle", new int[] {4});
-                varsTemplateVariables[1] = new TemplateVariable("String", "haystack", new int[] {11});
-                //how to add html conten......
-                return new TemplateBuffer(template.getPattern(),varsTemplateVariables);
+                TemplateVariable[] templateVariables = data.getVariables().stream().map(var -> var.getVariable()).toArray(TemplateVariable[]::new);
+                return new TemplateBuffer(template.getPattern(),templateVariables);
             }
             
             @Override
@@ -56,9 +59,15 @@ public class RexxContentAssistProcessor implements IContentAssistProcessor {
         };
         IRegion region = new Region(offset - 1 , 1);
         Image image = null;
-
-        RexxCompletionProposal proposal    = new RexxCompletionProposal(template, context, region, image,0); 
-        return new ICompletionProposal[] { proposal };
+        try {
+            Bundle bundle = org.eclipse.core.runtime.Platform.getBundle("RexxEditor");
+            URL fUrl = bundle.getEntry("icons/function.gif");
+            image = new Image(null, fUrl.openConnection().getInputStream());
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return new RexxCompletionProposal(template, context, region, image, 0); 
     }
 
     @Override
