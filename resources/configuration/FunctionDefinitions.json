@@ -1,0 +1,163 @@
+[
+    {
+        "pattern": "ABBREV(Information,Info)",
+        "returnValue": {
+            "type": "Boolean",
+            "description": "Returns 1 if <span>Info</span> is equal to the leading characters of <span>Information</span>."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "Information",
+                "offsets": [
+                    7
+                ],
+                "variableDescription": "The complete string to see if <span>Info</span> is an abbreviation of."
+            },
+            {
+                "type": "String",
+                "defaultValue": "Info",
+                "offsets": [
+                    19
+                ],
+                "variableDescription": "The string to see if it is an abbreviation of <span>Information</span>."
+            }
+        ],
+        "examples": [
+            "ABBREV('Print','Pri') == 1",
+            "ABBREV('PRINT','Pri') == 0",
+            "ABBREV('PRINT','PRY') == 0",
+            "ABBREV('PRINT','')    == 1"
+        ],
+        "additionalInfo": "Function"
+    },
+    {
+        "pattern": "ABBREV(Information,Info,Length)",
+        "returnValue": {
+            "type": "Boolean",
+            "description": "As with <span>ABBREV(Information,Info)</span>. A Null string will always match if length is 0."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "Information",
+                "offsets": [
+                    7
+                ],
+                "variableDescription": "The complete string to see if <span>Info</span> is an abbreviation of."
+            },
+            {
+                "type": "String",
+                "defaultValue": "Info",
+                "offsets": [
+                    19
+                ],
+                "variableDescription": "The string to see if it is an abbreviation of <span>Information</span>."
+            },
+            {
+                "type": "Integer",
+                "defaultValue": "0",
+                "offsets": [
+                    24
+                ],
+                "variableDescription": "The minimum length that <span>Info</span> must be."
+            }
+        ],
+        "examples": [
+            "ABBREV('PRINT','PRI',4) == 0",
+            "ABBREV('PRINT','',1)    == 0"
+        ],
+        "additionalInfo": "Function"
+    },
+    {
+        "pattern": "POS(Needle,Haystack)",
+        "returnValue": {
+            "type": "Integer",
+            "description": "Returns the position of one string, <span>Needle</span>, in another, <span>Haystack</span>. (See also the <span>LASTPOS</span> function.) If the string <span>Needle</span> is not found, or is the nulll string, 0 is returned. By Default the search starts at the first character of haystack (this is, <span>start</span> has the value of 1). This may be overridden by specifying <span>start</span> (which must be positive), the point at which to start the search. See <span>POS(Needle,Haystack,Start)</span> for more information."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "Needle",
+                "offsets": [
+                    4
+                ],
+                "variableDescription": "The string to search for."
+            },
+            {
+                "type": "String",
+                "defaultValue": "Haystack",
+                "offsets": [
+                    11
+                ],
+                "variableDescription": "The string to search through."
+            }
+        ],
+        "examples": [
+            "Pos(\"A\",\"ABCDEFG\") ===> 1",
+            "Pos(\"Doe\",\"John Doe\") ===> 6",
+            "Pos(\"No\",\"Yes\") ===> 0"
+        ],
+        "additionalInfo": "Function"
+    },
+    {
+        "pattern": "POS(Needle,Haystack,Start)",
+        "returnValue": {
+            "type": "Integer",
+            "description": "As with <span>POS(Needle,Haystack)</span> this overload searches through <span>Haystack</span> for <span>Needle</span> starting at the specified <span>Start</span> Position. <span>Start</span> must be positive."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "Needle",
+                "offsets": [
+                    4
+                ],
+                "variableDescription": "The string to search for."
+            },
+            {
+                "type": "String",
+                "defaultValue": "Haystack",
+                "offsets": [
+                    11
+                ],
+                "variableDescription": "The string to search through."
+            },
+            {
+                "type": "String",
+                "defaultValue": "Start",
+                "offsets": [
+                    20
+                ],
+                "variableDescription": "The string to search through."
+            }
+        ],
+        "examples": [
+            "Pos(\"A\",\"ABCDEFG\") ===> 1",
+            "Pos(\"Doe\",\"John Doe\") ===> 6",
+            "Pos(\"No\",\"Yes\") ===> 0"
+        ],
+        "additionalInfo": "Function"
+    },
+    {
+        "pattern": "FUNCTION_NAME()",
+        "returnValue": {
+            "type": "",
+            "description": ""
+        },
+        "variables": [
+            {
+                "type": "",
+                "defaultValue": "",
+                "offsets": [
+                    0
+                ],
+                "variableDescription": ""
+            }
+        ],
+        "examples": [
+            ""
+        ],
+        "additionalInfo": ""
+    }
+]

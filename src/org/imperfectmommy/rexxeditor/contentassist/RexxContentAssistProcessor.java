@@ -2,8 +2,8 @@ package org.imperfectmommy.rexxeditor.contentassist;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 
-import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextViewer;
@@ -40,7 +40,7 @@ public class RexxContentAssistProcessor implements IContentAssistProcessor {
     }
 
     private RexxCompletionProposal buildCompletionProposalFromKey(String string, ITextViewer viewer, int offset) {
-        RexxFunctionProposalData data = RexxFunctionProposalData.getRexxFunctionProposalData(string);
+       RexxFunctionProposalData data = RexxFunctionProposalData.getRexxFunctionProposalData(string);
         Template template = data.getTemplate();
         TemplateContextType type = new TemplateContextType();
         type.addResolver(new TemplateVariableResolver());
@@ -48,7 +48,7 @@ public class RexxContentAssistProcessor implements IContentAssistProcessor {
             
             @Override
             public TemplateBuffer evaluate(Template template) throws BadLocationException, TemplateException {
-                TemplateVariable[] templateVariables = data.getVariables().stream().map(var -> var.getVariable()).toArray(TemplateVariable[]::new);
+                TemplateVariable[] templateVariables = Arrays.stream(data.getVariables()).map(var -> var.getVariable()).toArray(TemplateVariable[]::new);
                 return new TemplateBuffer(template.getPattern(),templateVariables);
             }
             
