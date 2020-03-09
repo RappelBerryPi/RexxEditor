@@ -2,9 +2,13 @@ package org.imperfectmommy.rexxeditor.contentassist;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.jface.text.FindReplaceDocumentAdapter;
+import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.Region;
@@ -33,14 +37,27 @@ public class RexxContentAssistProcessor implements IContentAssistProcessor {
 
     @Override
     public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer, int offset) {
-        //TODO: Finish creating mapping function for a function to a the display information and stuff....
-        RexxCompletionProposal proposal = buildCompletionProposalFromKey("POS(Needle,Haystack)", viewer, offset);
-        RexxCompletionProposal proposal2 = buildCompletionProposalFromKey("POS(Needle,Haystack,Start)", viewer, offset);
-        return new ICompletionProposal[] { proposal, proposal2 };
+        IDocument document = viewer.getDocument();
+        FindReplaceDocumentAdapter adapter = new FindReplaceDocumentAdapter(document);
+        String foundString = "";
+        try {
+            IRegion region2 = adapter.find(offset - 1,"\\s", false, false, false, true);
+            foundString = document.get(region2.getOffset() + 1, offset - region2.getOffset() - 1);
+        } catch (BadLocationException e1) {
+            e1.printStackTrace();
+        }
+        final String finalFoundString = foundString;
+        
+        List<RexxCompletionProposal> proposals = new ArrayList<>();
+        String[] functionNames= RexxFunctionProposalData.getFunctionMap().keySet().stream().filter(k -> k.contains(finalFoundString)).sorted().toArray(String[]::new);
+        for (String functionName: functionNames) {
+            proposals.add(buildCompletionProposalFromKey(functionName, viewer, offset));
+        }
+        return proposals.toArray(ICompletionProposal[]::new);
     }
 
     private RexxCompletionProposal buildCompletionProposalFromKey(String string, ITextViewer viewer, int offset) {
-       RexxFunctionProposalData data = RexxFunctionProposalData.getRexxFunctionProposalData(string);
+        RexxFunctionProposalData data =  RexxFunctionProposalData.getFunctionMap().get(string);
         Template template = data.getTemplate();
         TemplateContextType type = new TemplateContextType();
         type.addResolver(new TemplateVariableResolver());
@@ -48,7 +65,10 @@ public class RexxContentAssistProcessor implements IContentAssistProcessor {
             
             @Override
             public TemplateBuffer evaluate(Template template) throws BadLocationException, TemplateException {
-                TemplateVariable[] templateVariables = Arrays.stream(data.getVariables()).map(var -> var.getVariable()).toArray(TemplateVariable[]::new);
+                TemplateVariable[] templateVariables = new  TemplateVariable[0];
+                if (data.getVariables() != null) {
+                    templateVariables = Arrays.stream(data.getVariables()).map(var -> var.getVariable()).toArray(TemplateVariable[]::new);
+                }
                 return new TemplateBuffer(template.getPattern(),templateVariables);
             }
             
@@ -78,12 +98,12 @@ public class RexxContentAssistProcessor implements IContentAssistProcessor {
 
     @Override
     public char[] getCompletionProposalAutoActivationCharacters() {
-        return new char[] { 'p' };
+        return "ADP".toCharArray();
     }
 
     @Override
     public char[] getContextInformationAutoActivationCharacters() {
-        return new char[] { 'p' };
+        return "ADP".toCharArray();
     }
 
     @Override

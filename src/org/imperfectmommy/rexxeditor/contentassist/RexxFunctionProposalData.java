@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import org.eclipse.jface.text.templates.Template;
 import org.osgi.framework.Bundle;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class RexxFunctionProposalData {
@@ -29,7 +28,7 @@ public class RexxFunctionProposalData {
 
     public Template getTemplate() {
         if (template == null) {
-            this.template = new Template(this.pattern + ": " + this.returnValue.getType(), "*** ADDITIONAL INFO ***", "org.imperfectmommy.rexxeditor.editors.RexxEditor", this.pattern, false);
+            this.template = new Template(this.pattern + ": " + this.returnValue.getType(), "builtin: " + this.getAdditionalInfo(), "org.imperfectmommy.rexxeditor.editors.RexxEditor", this.pattern, false);
         }
         return template;
     }
@@ -77,11 +76,20 @@ public class RexxFunctionProposalData {
     }
 
     public static Map<String, RexxFunctionProposalData> getFunctionMap() {
+        if (functionMap.isEmpty()) {
+            try {
+                ObjectMapper               mapper = new ObjectMapper();
+                Bundle                     bundle = org.eclipse.core.runtime.Platform.getBundle("RexxEditor");
+                URL                        fUrl   = bundle.getEntry("resources/configuration/FunctionDefinitions.json");
+                RexxFunctionProposalData[] data   = mapper.readValue(fUrl.openConnection().getInputStream(), RexxFunctionProposalData[].class);
+                for (RexxFunctionProposalData rexxFunctionProposalData : data) {
+                    functionMap.putIfAbsent(rexxFunctionProposalData.pattern, rexxFunctionProposalData);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         return functionMap;
-    }
-
-    public static void setFunctionMap(Map<String, RexxFunctionProposalData> functionMap) {
-        RexxFunctionProposalData.functionMap = functionMap;
     }
 
     public final static String baseHTMLTemplate = "<html><head>" + "<style>" + "* { font-size: 12px; }" + "html {overflow:scroll;}" + "body { font-family: \"Lucida Console\", Monaco, monospace;}"
@@ -91,13 +99,19 @@ public class RexxFunctionProposalData {
 
     @Override
     public String toString() {
-        String returnString = RexxFunctionProposalData.baseHTMLTemplate + "<p>" + this.getFunctionName() + "(<span>";
-        returnString += Arrays.stream(this.variables).map(var -> var.getVariable().getDefaultValue()).collect(Collectors.joining("</span>,<span>")) + "</span>)";
-        returnString += "<p><span>Variables:</span></p><table>";
-        for (TemplateVariableWithDescription variable : this.variables) {
-            returnString += "<tr><th>" + variable.getVariable().getDefaultValue() + "</th><td>-</td><td>" + variable.getVariableDescription() + "</td></tr>";
+        String returnString = RexxFunctionProposalData.baseHTMLTemplate + "<p>" + this.getFunctionName() + "(";
+        if (this.variables != null) {
+            returnString += "<span>" + Arrays.stream(this.variables).map(var -> var.getVariable().getDefaultValue()).collect(Collectors.joining("</span>,<span>")) + "</span>";
         }
-        returnString += "</table><p><span>Returns:</span><br />";
+        returnString += ")";
+        if (this.variables != null) {
+            returnString += "<p><span>Variables:</span></p><table>";
+            for (TemplateVariableWithDescription variable : this.variables) {
+                returnString += "<tr><th>" + variable.getVariable().getDefaultValue() + "</th><td>-</td><td>" + variable.getVariableDescription() + "</td></tr>";
+            }
+            returnString += "</table>";
+        }
+        returnString += "<p><span>Returns:</span><br />";
         returnString += this.getReturnValue().getDescription() + "</p>";
         for (int i = 0; i < this.examples.length; i++) {
             returnString += "<p><span>Example " + (i + 1) + ":</span><br />";
@@ -108,22 +122,6 @@ public class RexxFunctionProposalData {
     }
 
     public static RexxFunctionProposalData getRexxFunctionProposalData(String functionPattern) {
-        if (functionMap.isEmpty()) {
-
-            try {
-                ObjectMapper mapper = new ObjectMapper();
-                Bundle                     bundle = org.eclipse.core.runtime.Platform.getBundle("RexxEditor");
-                URL                        fUrl   = bundle.getEntry("resources/configuration/FunctionDefinitions.json");
-                RexxFunctionProposalData[] data   = mapper.readValue(fUrl.openConnection().getInputStream(), RexxFunctionProposalData[].class);
-                System.out.println(data[0]);
-                for (RexxFunctionProposalData rexxFunctionProposalData : data) {
-                    functionMap.putIfAbsent(rexxFunctionProposalData.pattern, rexxFunctionProposalData);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
         return functionMap.get(functionPattern);
     }
 

@@ -3,7 +3,7 @@
         "pattern": "ABBREV(Information,Info)",
         "returnValue": {
             "type": "Boolean",
-            "description": "Returns 1 if <span>Info</span> is equal to the leading characters of <span>Information</span>."
+            "description": "Returns 1 if <span>Info</span> is equal to the leading characters of <span>Information</span> and 0 otherwise."
         },
         "variables": [
             {
@@ -29,7 +29,7 @@
             "ABBREV('PRINT','PRY') == 0",
             "ABBREV('PRINT','')    == 1"
         ],
-        "additionalInfo": "Function"
+        "additionalInfo": "Is abbreviation of."
     },
     {
         "pattern": "ABBREV(Information,Info,Length)",
@@ -67,7 +67,199 @@
             "ABBREV('PRINT','PRI',4) == 0",
             "ABBREV('PRINT','',1)    == 0"
         ],
+        "additionalInfo": "Is abbreviation of."
+    },
+    {
+        "pattern": "ABS(Number)",
+        "returnValue": {
+            "type": "Numeric",
+            "description": "The absolute value of <span>Number</span>. This has no sign and is formatted according to the current NUMERIC settings."
+        },
+        "variables": [
+            {
+                "type": "Numeric",
+                "defaultValue": "Number",
+                "offsets": [
+                    4
+                ],
+                "variableDescription": "The number to get the absolute value of."
+            }
+        ],
+        "examples": [
+            "ABS('12.3')    == 12.3",
+            "ABS(' -0.307') == 0.307"
+        ],
         "additionalInfo": "Function"
+    },
+    {
+        "pattern": "ADDRESS()",
+        "returnValue": {
+            "type": "String",
+            "description": "The name of the environment to which commands are currently being submitted. See the <span>ADDRESS</span> instruction for more information."
+        },
+        "examples": [
+            "ADDRESS() == 'PCDOS'   /* perhaps */",
+            "ADDRESS() == 'XEDIT'   /* perhaps */",
+            "ADDRESS() == 'ISPEXEC' /* perhaps */",
+            "ADDRESS() == 'TSO'     /* perhaps */"
+        ],
+        "additionalInfo": "Absolute value of"
+    },
+    {
+        "pattern": "ARG()",
+        "returnValue": {
+            "type": "Numeric",
+            "description": "The number of arguments passed into the program or internal routine."
+        },
+        "examples": [
+            "ARG() == 0 /* with no arguments passed I.E. (Call Function)      */",
+            "ARG() == 3 /* with 3 arguments passed  I.E. (Call Function 1,,2) */"
+        ],
+        "additionalInfo": "The number of arguments."
+    },
+    {
+        "pattern": "ARG(N)",
+        "returnValue": {
+            "type": "String",
+            "description": "The String value of the Argument <span>N</span> (starting from 1). This returns the Null String if the argument does not exist or if it is greater than the number of arguments passed to the program or internal routine. See <span>ARG()</span>. See also <span>PARSE ARG</span>."
+        },
+        "variables": [
+            {
+                "type": "Integer",
+                "defaultValue": "N",
+                "offsets": [
+                    4
+                ],
+                "variableDescription": "The argument index to retrieve (starting from 1)."
+            }
+        ],
+        "examples": [
+            "ARG(1) == 1  /* Call Function 1,,2 */",
+            "ARG(2) == '' /* Call Function 1,,2 */",
+            "ARG(3) == 2  /* Call Function 1,,2 */",
+            "ARG(n) == '' /*(for n >=4) Call Function 1,,2 */"
+        ],
+        "additionalInfo": ""
+    },
+    {
+        "pattern": "ARG(N,Option)",
+        "returnValue": {
+            "type": "Boolean",
+            "description": "Depending on <span>Option</span> tests whether the argument <span>N</span> <span>e</span>xists or was <span>o</span>mitted."
+        },
+        "variables": [
+            {
+                "type": "Integer",
+                "defaultValue": "N",
+                "offsets": [
+                    4
+                ],
+                "variableDescription": "The argument index to retrieve (starting from 1)."
+            },
+            {
+                "type": "Char",
+                "defaultValue": "Option",
+                "offsets": [
+                    6
+                ],
+                "variableDescription": "The value 'E' to test if the argument exists or 'O' to test if the argument was omitted."
+            }
+        ],
+        "examples": [
+            "ARG(1,'e') == 1  /* Call Function 1,,2 */",
+            "ARG(2,'E') == 0  /* Call Function 1,,2 */",
+            "ARG(2,'o') == 1  /* Call Function 1,,2 */",
+            "ARG(3,'O') == 0  /* Call Function 1,,2 */"
+        ],
+        "additionalInfo": ""
+    },
+    {
+        "pattern": "BITAND(String1)",
+        "returnValue": {
+            "type": "String",
+            "description": "Returns the String passed into the function unmodified."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "String1",
+                "offsets": [
+                    7
+                ],
+                "variableDescription": "The String to return from the function."
+            }
+        ],
+        "examples": [
+            "BITAND('73'x) == '73'x"
+        ],
+        "additionalInfo": ""
+    },
+    {
+        "pattern": "BITAND(String1,String2)",
+        "returnValue": {
+            "type": "String",
+            "description": "Returns the String that is a result of binary ANDing String1 and String2 together. The AND starts at the far left and continues until the shorter of the two strings is exausted the length of the returned string is that of the longest passed in String."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "String1",
+                "offsets": [
+                    7
+                ],
+                "variableDescription": "The String to AND with String2."
+            },
+            {
+                "type": "String",
+                "defaultValue": "String2",
+                "offsets": [
+                    15
+                ],
+                "variableDescription": "The String to AND with String1."
+            }
+        ],
+        "examples": [
+            "BITAND('73'x,'27'x)   == '23'x",
+            "BITAND('13'x,'5555'x) == '1155'x"
+        ],
+        "additionalInfo": ""
+    },
+    {
+        "pattern": "BITAND(String1,String2,Pad)",
+        "returnValue": {
+            "type": "String",
+            "description": "Returns the String that is a result of binary ANDing String1 and String2 together with PAD applied to the shorter string until it equals the length of the longer String. The AND starts at the far left and continues until the shorter of the two strings is exausted the length of the returned string is that of the longest passed in String."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "String1",
+                "offsets": [
+                    7
+                ],
+                "variableDescription": "The String to AND with String2."
+            },
+            {
+                "type": "String",
+                "defaultValue": "String2",
+                "offsets": [
+                    15
+                ],
+                "variableDescription": "The String to AND with String1."
+            },
+            {
+                "type": "String",
+                "defaultValue": "Pad",
+                "offsets": [
+                    23
+                ],
+                "variableDescription": "The Padding to be aplied to the shorter string before the AND is perfromed."
+            }
+        ],
+        "examples": [
+            "BITAND('13'x,'5555'x,'74'x) == '1154'x"
+        ],
+        "additionalInfo": ""
     },
     {
         "pattern": "POS(Needle,Haystack)",
@@ -98,7 +290,7 @@
             "Pos(\"Doe\",\"John Doe\") ===> 6",
             "Pos(\"No\",\"Yes\") ===> 0"
         ],
-        "additionalInfo": "Function"
+        "additionalInfo": "Position of."
     },
     {
         "pattern": "POS(Needle,Haystack,Start)",
@@ -137,7 +329,7 @@
             "Pos(\"Doe\",\"John Doe\") ===> 6",
             "Pos(\"No\",\"Yes\") ===> 0"
         ],
-        "additionalInfo": "Function"
+        "additionalInfo": "Position of starting at."
     },
     {
         "pattern": "FUNCTION_NAME()",
