@@ -198,7 +198,7 @@
         "pattern": "BITAND(String1,String2)",
         "returnValue": {
             "type": "String",
-            "description": "Returns the String that is a result of binary ANDing String1 and String2 together. The AND starts at the far left and continues until the shorter of the two strings is exausted the length of the returned string is that of the longest passed in String."
+            "description": "Returns the String that is a result of binary ANDing String1 and String2 together. The AND starts at the far left and continues until the shorter of the two strings is exausted. The length of the returned string is that of the longest passed in String."
         },
         "variables": [
             {
@@ -228,7 +228,7 @@
         "pattern": "BITAND(String1,String2,Pad)",
         "returnValue": {
             "type": "String",
-            "description": "Returns the String that is a result of binary ANDing String1 and String2 together with PAD applied to the shorter string until it equals the length of the longer String. The AND starts at the far left and continues until the shorter of the two strings is exausted the length of the returned string is that of the longest passed in String."
+            "description": "Returns the String that is a result of binary ANDing String1 and String2 together with PAD applied to the shorter string until it equals the length of the longer String. The AND starts at the far left and continues until the shorter of the two strings is exausted. The length of the returned string is that of the longest passed in String."
         },
         "variables": [
             {
@@ -261,6 +261,707 @@
         ],
         "additionalInfo": ""
     },
+    {
+        "pattern": "BITOR(String1)",
+        "returnValue": {
+            "type": "String",
+            "description": "Returns the String passed into the function unmodified."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "String1",
+                "offsets": [
+                    6
+                ],
+                "variableDescription": "The String to return from the function."
+            }
+        ],
+        "examples": [
+            "BITOR('73'x) == '73'x"
+        ],
+        "additionalInfo": ""
+    },
+    {
+        "pattern": "BITOR(String1,String2)",
+        "returnValue": {
+            "type": "String",
+            "description": "Returns the String that is a result of binary ORing String1 and String2 together. The OR starts at the far left and continues until the shorter of the two strings is exausted. The length of the returned string is that of the longest passed in String."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "String1",
+                "offsets": [
+                    6
+                ],
+                "variableDescription": "The String to OR with String2."
+            },
+            {
+                "type": "String",
+                "defaultValue": "String2",
+                "offsets": [
+                    14
+                ],
+                "variableDescription": "The String to OR with String1."
+            }
+        ],
+        "examples": [
+            "BITOR('15'x,'24'x)   == '35'x",
+            "BITOR('15'x,'2456'x) == '3556'x"
+        ],
+        "additionalInfo": ""
+    },
+    {
+        "pattern": "BITOR(String1,String2,Pad)",
+        "returnValue": {
+            "type": "String",
+            "description": "Returns the String that is a result of binary ORing String1 and String2 together with PAD applied to the shorter string until it equals the length of the longer String. The OR starts at the far left and continues until the shorter of the two strings is exausted. The length of the returned string is that of the longest passed in String."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "String1",
+                "offsets": [
+                    6
+                ],
+                "variableDescription": "The String to OR with String2."
+            },
+            {
+                "type": "String",
+                "defaultValue": "String2",
+                "offsets": [
+                    14
+                ],
+                "variableDescription": "The String to OR with String1."
+            },
+            {
+                "type": "String",
+                "defaultValue": "Pad",
+                "offsets": [
+                    22
+                ],
+                "variableDescription": "The Padding to be applied to the shorter string before the OR is perfromed."
+            }
+        ],
+        "examples": [
+            "BITOR('15'x,'2456'x,'F0'x) == '35F6'x",
+            "BITOR('1111'x,,'4D'x)      == '5D5D'x"
+        ],
+        "additionalInfo": ""
+    },
+    {
+        "pattern": "BITXOR(String1)",
+        "returnValue": {
+            "type": "String",
+            "description": "Returns the String passed into the function unmodified."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "String1",
+                "offsets": [
+                    7
+                ],
+                "variableDescription": "The String to return from the function."
+            }
+        ],
+        "examples": [
+            "BITXOR('12'x) == '12'x"
+        ],
+        "additionalInfo": ""
+    },
+    {
+        "pattern": "BITXOR(String1,String2)",
+        "returnValue": {
+            "type": "String",
+            "description": "Returns the String that is a result of binary XORing String1 and String2 together. The XOR starts at the far left and continues until the shorter of the two strings is exausted. The length of the returned string is that of the longest passed in String."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "String1",
+                "offsets": [
+                    7
+                ],
+                "variableDescription": "The String to XOR with String2."
+            },
+            {
+                "type": "String",
+                "defaultValue": "String2",
+                "offsets": [
+                    15
+                ],
+                "variableDescription": "The String to XOR with String1."
+            }
+        ],
+        "examples": [
+            "BITXOR('12'x,'22'x)       == '30'x",
+            "BITXOR('1211'x,'22'x)     == '3011'x",
+            "BITXOR('1111'x,'444444'x) == '555544'x"
+        ],
+        "additionalInfo": ""
+    },
+    {
+        "pattern": "BITXOR(String1,String2,Pad)",
+        "returnValue": {
+            "type": "String",
+            "description": "Returns the String that is a result of binary XORing String1 and String2 together with PAD applied to the shorter string until it equals the length of the longer String. The XOR starts at the far left and continues until the shorter of the two strings is exausted. The length of the returned string is that of the longest passed in String."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "String1",
+                "offsets": [
+                    7
+                ],
+                "variableDescription": "The String to XOR with String2."
+            },
+            {
+                "type": "String",
+                "defaultValue": "String2",
+                "offsets": [
+                    15
+                ],
+                "variableDescription": "The String to XOR with String1."
+            },
+            {
+                "type": "String",
+                "defaultValue": "Pad",
+                "offsets": [
+                    23
+                ],
+                "variableDescription": "The Padding to be aplied to the shorter string before the XOR is perfromed."
+            }
+        ],
+        "examples": [
+            "BITXOR('1111'x,'444444'x,'40'x) == '555504'x",
+            "BITXOR('1111'x,,'4D'x)          == '5C5C'x"
+        ],
+        "additionalInfo": ""
+    },
+    {
+        "pattern": "B2X(binary-string)",
+        "returnValue": {
+            "type": "String",
+            "description": "The hexadecimal value that the passed in binary String represents."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "binary-string",
+                "offsets": [
+                    4
+                ],
+                "variableDescription": "A String representation of a binary value (only ones and zeros and spaces)."
+            }
+        ],
+        "examples": [
+            "B2X('11000011')     == 'C3'",
+            "B2X('1 1111  0000') == '1F0'"
+        ],
+        "additionalInfo": ""
+    },
+    {
+        "pattern": "CENTER(String,Length)",
+        "returnValue": {
+            "type": "String",
+            "description": "A Centered <span>String</span> in the spcified <span>Length</span> amount of space. Padded equally on both sides with spaces. If <span>Length</span> is less than the length of <span>String</span> then <span>String</span> is truncated from both sides to the length <span>Length</span>. Additionally, if an odd number of characters are truncated or added, the Right hand end loses or gains one more character than the left hand end. May also be specified as <span>CENTRE</span>."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "String",
+                "offsets": [
+                    7
+                ],
+                "variableDescription": "The String to center in <span>Length</span>."
+            },
+            {
+                "type": "String",
+                "defaultValue": "Length",
+                "offsets": [
+                    14
+                ],
+                "variableDescription": "The <span>Length</span> to center <span>String</span> into."
+            }
+        ],
+        "examples": [
+            "CENTER('ABC',7)          == '  ABC  '",
+            "CENTER('ABC',8)          == '  ABC   '",
+            "CENTER('The blue sky',8) == 'e blue s'",
+            "CENTER('The blue sky',7) == 'e blue '"
+        ],
+        "additionalInfo": ""
+    },
+    {
+        "pattern": "CENTER(String,Length,Pad)",
+        "returnValue": {
+            "type": "String",
+            "description": "A Centered <span>String</span> in the spcified <span>Length</span> amount of space. Padded equally on both sides with <span>Pad</span>. If <span>Length</span> is less than the length of <span>String</span> then <span>String</span> is truncated from both sides to the length <span>Length</span>. Additionally, if an odd number of characters are truncated or added, the Right hand end loses or gains one more character than the left hand end. May also be specified as <span>CENTRE</span>."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "String",
+                "offsets": [
+                    7
+                ],
+                "variableDescription": "The String to center in <span>Length</span>."
+            },
+            {
+                "type": "String",
+                "defaultValue": "Length",
+                "offsets": [
+                    14
+                ],
+                "variableDescription": "The <span>Length</span> to center <span>String</span> into."
+            },
+            {
+                "type": "Character",
+                "defaultValue": "Pad",
+                "offsets": [
+                    21
+                ],
+                "variableDescription": "The <span>Pad</span> character to add around <span>String</span>."
+
+            }
+        ],
+        "examples": [
+            "CENTER('ABC',8,'-') == '--ABC---'"
+        ],
+        "additionalInfo": ""
+    },
+    {
+        "pattern": "CENTRE(String,Length)",
+        "returnValue": {
+            "type": "String",
+            "description": "A Centered <span>String</span> in the spcified <span>Length</span> amount of space. Padded equally on both sides with spaces. If <span>Length</span> is less than the length of <span>String</span> then <span>String</span> is truncated from both sides to the length <span>Length</span>. Additionally, if an odd number of characters are truncated or added, the Right hand end loses or gains one more character than the left hand end. May also be specified as <span>CENTER</span>."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "String",
+                "offsets": [
+                    7
+                ],
+                "variableDescription": "The String to center in <span>Length</span>."
+            },
+            {
+                "type": "String",
+                "defaultValue": "Length",
+                "offsets": [
+                    14
+                ],
+                "variableDescription": "The <span>Length</span> to center <span>String</span> into."
+            }
+        ],
+        "examples": [
+            "CENTRE('ABC',7) == '  ABC  '",
+            "CENTRE('ABC',8) == '  ABC   '"
+        ],
+        "additionalInfo": ""
+    },
+    {
+        "pattern": "CENTRE(String,Length,Pad)",
+        "returnValue": {
+            "type": "String",
+            "description": "A Centered <span>String</span> in the spcified <span>Length</span> amount of space. Padded equally on both sides with <span>Pad</span>. If <span>Length</span> is less than the length of <span>String</span> then <span>String</span> is truncated from both sides to the length <span>Length</span>. Additionally, if an odd number of characters are truncated or added, the Right hand end loses or gains one more character than the left hand end. May also be specified as <span>CENTER</span>."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "String",
+                "offsets": [
+                    7
+                ],
+                "variableDescription": "The String to center in <span>Length</span>."
+            },
+            {
+                "type": "String",
+                "defaultValue": "Length",
+                "offsets": [
+                    14
+                ],
+                "variableDescription": "The <span>Length</span> to center <span>String</span> into."
+            },
+            {
+                "type": "Character",
+                "defaultValue": "Pad",
+                "offsets": [
+                    21
+                ],
+                "variableDescription": "The <span>Pad</span> character to add around <span>String</span>."
+
+            }
+        ],
+        "examples": [
+            "CENTRE('ABC',8,'-') == '--ABC---'"
+        ],
+        "additionalInfo": ""
+    },
+    {
+        "pattern": "CHARIN()",
+        "returnValue": {
+            "type": "",
+            "description": ""
+        },
+        "variables": [
+            {
+                "type": "",
+                "defaultValue": "",
+                "offsets": [
+                    0
+                ],
+                "variableDescription": ""
+            }
+        ],
+        "examples": [
+            ""
+        ],
+        "additionalInfo": ""
+    },
+    {
+        "pattern": "CHAROUT()",
+        "returnValue": {
+            "type": "",
+            "description": ""
+        },
+        "variables": [
+            {
+                "type": "",
+                "defaultValue": "",
+                "offsets": [
+                    0
+                ],
+                "variableDescription": ""
+            }
+        ],
+        "examples": [
+            ""
+        ],
+        "additionalInfo": ""
+    },
+    {
+        "pattern": "CHARS()",
+        "returnValue": {
+            "type": "",
+            "description": ""
+        },
+        "variables": [
+            {
+                "type": "",
+                "defaultValue": "",
+                "offsets": [
+                    0
+                ],
+                "variableDescription": ""
+            }
+        ],
+        "examples": [
+            ""
+        ],
+        "additionalInfo": ""
+    },
+    {
+        "pattern": "COMPARE(String1,String2)",
+        "returnValue": {
+            "type": "Integer",
+            "description": "The Character Position in which <span>String1</span> and <span>String2</span> differ (0 meaning that they are the same String). If one string is shorter than the other then it is padded with a spaces until their lengths are equal."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "String1",
+                "offsets": [
+                    8
+                ],
+                "variableDescription": "The string to compare to <span>String2</span>."
+            },
+            {
+                "type": "String",
+                "defaultValue": "String2",
+                "offsets": [
+                    16
+                ],
+                "variableDescription": "The string to compare to <span>String1</span>."
+            }
+        ],
+        "examples": [
+            "COMPARE('abc','abc') == 0",
+            "COMPARE('abc','ak')  == 2",
+            "COMPARE('ab ','ab')  == 0"
+        ],
+        "additionalInfo": ""
+    },
+    {
+        "pattern": "COMPARE(String1,String2,Pad)",
+        "returnValue": {
+            "type": "Integer",
+            "description": "The Character Position in which <span>String1</span> and <span>String2</span> differ (0 meaning that they are the same String). If one string is shorter than the other then it is padded with the <span>Pad</span> char until their lengths are equal."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "String1",
+                "offsets": [
+                    8
+                ],
+                "variableDescription": "The string to compare to <span>String2</span>."
+            },
+            {
+                "type": "String",
+                "defaultValue": "String2",
+                "offsets": [
+                    16
+                ],
+                "variableDescription": "The string to compare to <span>String1</span>."
+            },
+            {
+                "type": "Character",
+                "defaultValue": "Pad",
+                "offsets": [
+                    24
+                ],
+                "variableDescription": "The Pad Char to add the shorter string until it matches the other strings length."
+            }
+        ],
+        "examples": [
+            "COMPARE('ab-- ','ab','-')  == 5"
+        ],
+        "additionalInfo": ""
+    },
+    {
+        "pattern": "CONDITION()",
+        "returnValue": {
+            "type": "String",
+            "description": "The name of the trapped condition."
+        },
+        "examples": [
+            "CONDITION() == 'CALL' /* PERHAPS */"
+        ],
+        "additionalInfo": ""
+    },
+    {
+        "pattern": "CONDITION(Option)",
+        "returnValue": {
+            "type": "String.",
+            "description": "The information associated with the current trapped condition. <span>C</span>ondition name, <span>D</span>escription, <span>I</span>nstruction, or <span>S</span>tate."
+
+        },
+        "variables": [
+            {
+                "type": "Character",
+                "defaultValue": "Option",
+                "offsets": [
+                    10
+                ],
+                "variableDescription": "<table> <tr><th>C</th><td>-</td><td>Condition name. Returns the name of the current trapped condition.</td></tr> <tr><th>D</th><td>-</td><td>Description. Returns any descriptive string associated with the current trapped condition.</td></tr> <tr><th>I</th><td>-</td><td>Instruction. returns the keyword for the instruction executed when the current condition was trapped.</td></tr> <tr><th>S</th><td>-</td><td>State. Returns the state of the current trapped condition.</td></tr> </table>"
+            }
+        ],
+        "examples": [
+            "CONDITION('C') == 'FAILURE'     /* perhaps */",
+            "CONDITION('I') == 'CALL'        /* perhaps */",
+            "CONDITION('D') == 'FailureTest' /* perhaps */",
+            "CONDITION('S') == 'OFF'         /* perhaps */"
+        ],
+        "additionalInfo": ""
+    },
+    {
+        "pattern": "COPIES(String,N)",
+        "returnValue": {
+            "type": "String",
+            "description": "<span>N</span> directly concatenated copies of <span>String</span>."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "String",
+                "offsets": [
+                    7
+                ],
+                "variableDescription": "The String to produce multiple copies of."
+            },
+            {
+                "type": "Integer",
+                "defaultValue": "N",
+                "offsets": [
+                   14
+                ],
+                "variableDescription": "The number of copies of <span>String</span> to produce, must be positive or 0."
+            }
+        ],
+        "examples": [
+            "COPIES('abc',3) == 'abcabcabc'",
+            "COPIES('abc',0) == ''"
+        ],
+        "additionalInfo": ""
+    },
+    {
+        "pattern": "C2D(String)",
+        "returnValue": {
+            "type": "Integer",
+            "description": "The decimal value of the binary representation (encoding) of string. If the result cannot be expressed as a whole number, an error results - that is, the result must not have more digits than the current setting of NUMERIC DIGITS."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "String",
+                "offsets": [
+                    4
+                ],
+                "variableDescription": "The String to be converted. This may be the null strig, in which case '0' is returned. This is assumed to be an unsigned value."
+            }
+        ],
+        "examples": [
+        "C2D('09'x)    == 9",
+        "C2D('8l'x)    == 129",
+        "C2D('a')      == 129 /* EBCDIC Encoding */",
+        "C2D('FF8l'x)  == 65409",
+        "C2D ('')      == 0"
+        ],
+        "additionalInfo": "Character to Decimal."
+    },
+    {
+        "pattern": "C2D(String,N)",
+        "returnValue": {
+            "type": "Integer",
+            "description": "The decimal value of the binary representation (encoding) of string. If the result cannot be expressed as a whole number, an error results - that is, the result must not have more digits than the current setting of NUMERIC DIGITS."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "String",
+                "offsets": [
+                    4
+                ],
+                "variableDescription": "The String to be converted. This may be the null strig, in which case '0' is returned. This is assumed to be an signed value of length <span>N</span>."
+            },
+            {
+                "type": "Integer",
+                "defaultValue": "N",
+                "offsets": [
+                    11
+                ],
+                "variableDescription": "The number of characters (starting from the right and moving left) in which to consider the conversion of <span>String</span>. if N is longer than the length of <span>String</span> Then '00'x is prepended to the string before conversion."
+            }
+        ],
+        "examples": [
+            "C2D('81'x,l)   == -127",
+            "C2D('81'x,2)   == 129",
+            "C2D('FF81'x,2) == -127",
+            "C2D('FF81'x,l) == -127",
+            "C2D('FF7F'x,l) == 127",
+            "C2D('F081'x,2) == -3967",
+            "C2D('F081'x,l) == -127",
+            "C2D('0031'x,0) == 0"
+        ],
+        "additionalInfo": "Character to Decimal."
+    },
+    {
+        "pattern": "C2X(String)",
+        "returnValue": {
+            "type": "String",
+            "description": "The hexedecimal representation (unpacked value) of a character String. All values A-F will be upper case and contain no blanks."
+
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "String",
+                "offsets": [
+                    4
+                ],
+                "variableDescription": "The string to be unpacked. This may be of any length, and if it is the null string then a null string is returned."
+            }
+        ],
+        "examples": [
+            "C2X('72s')   == 'F7F2A2' /* EBCDIC */",
+            "C2X('0123'x) == '0123'"
+        ],
+        "additionalInfo": "Character to Hexadecimal."
+    },
+    {
+        "pattern": "DATATYPE(String)",
+        "returnValue": {
+            "type": "String",
+            "description": "The value 'NUM' or 'CHAR' depending on whether the <span>String</span> can be added to '0' without error."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "String",
+                "offsets": [
+                    10
+                ],
+                "variableDescription": "The String to test the Datatype of."
+            }
+        ],
+        "examples": [
+            "DATATYPE(' 12 ') == 'NUM'",
+            "DATATYPE('')     == 'CHAR'",
+            "DATATYPE('123*') == 'CHAR'"
+        ],
+        "additionalInfo": "Type of String."
+    },
+    {
+        "pattern": "DATATYPE(String,Type)",
+        "returnValue": {
+            "type": "Boolean",
+            "description": "Whether or not <span>String</span> is of the type <span>Type</span>. If <span>String</span> is null and <span>Type</span> is not 'x' then 0 (False) is returned."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "String",
+                "offsets": [
+                    10
+                ],
+                "variableDescription": "The String to test the Datatype of."
+            },
+            {
+                "type": "Char",
+                "defaultValue": "Type",
+                "offsets": [
+                    16
+                ],
+                "variableDescription": "<table> <tr> <th> A </th> <td> - </td> <td> (Alphanumeric) </td> <td> Returns 1 if <span>String</span> only contains characters from the ranges 'a-z', 'A-Z', and '0-9'. </td> </tr> <tr> <th> B </th> <td> - </td> <td> (Binary) </td> <td> Returns 1 if <span>String</span> only contains the characters '0' and/or '1'. </td> </tr> <tr> <th> L </th> <td> - </td> <td> (lower case) </td> <td> Returns 1 if <span>String</span> only contains characters from the range 'a-z'. </td> </tr> <tr> <th> M </th> <td> - </td> <td> (Mixed Case) </td> <td> Returns 1 if <span>String</span> only contains characters from the ranges 'a-z' and 'A-Z'. </td> </tr> <tr> <th> N </th> <td> - </td> <td> (Number) </td> <td> Returns 1 if <span>DATATYPE(String)</span> would return 'NUM'. </td> </tr> <tr> <th> S </th> <td> - </td> <td> (Symbol) </td> <td> Returns 1 if <span>String</span> only contains characters that are valid in REXX symbols. Note that lower case alphabetics are permitted. </td> </tr> <tr> <th> U </th> <td> - </td> <td> (UPPER CASE) </td> <td> Returns 1 if <span>String</span> only contains characters from the range 'A-Z'. </td> </tr> <tr> <th> W </th> <td> - </td> <td> (Whole Number) </td> <td> Returns 1 if <span>String</span> is a REXX whole number under the current setting of NUMERIC DIGITS. </td> </tr> <tr> <th> X </th> <td> - </td> <td> (heXadecimal) </td> <td> Returns 1 if <span>String</span> only contains characters from the ranges 'a-f', 'A-F', '0-9', and blank (so long as blanks only appear between pairs of hexadecimal characters, as usual.) Also returns 2 if <span>String</span> is a null string, which is a valid hexadecimal string. </td> </tr> </table>"
+            }
+        ],
+        "examples": [
+            "DATATYPE('l2.3','N')  == 1",
+            "DATATYPE('12.3','W')  == 0",
+            "DATATYPE('Fred','M')  == 1",
+            "DATATYPE('','M')      == 0",
+            "DATATYPE('Minx','L')  == 0",
+            "DATATYPE('3d?','s')   == 1",
+            "DATATYPE('BCd3','X')  == 1",
+            "DATATYPE('BC d3','X') == 1"
+        ],
+        "additionalInfo": "Type of String."
+    },
+    {
+        "pattern": "FUNCTION_NAME()",
+        "returnValue": {
+            "type": "",
+            "description": ""
+        },
+        "variables": [
+            {
+                "type": "",
+                "defaultValue": "",
+                "offsets": [
+                    0
+                ],
+                "variableDescription": ""
+            }
+        ],
+        "examples": [
+            ""
+        ],
+        "additionalInfo": ""
+    },
+    //TODO: C2D, C2X, DATATYPE, DATE, DELSTR, DELWORD, DIGITS< D2C, D2X, ERRORTEXT, FORM, FORMAT, FORMAT (v2), FUZZ, INSERT, LASTPOS, LEFT< LENGTH, LINEIN, Lineout, LINES, MAX, MIN, OVERLAY
     {
         "pattern": "POS(Needle,Haystack)",
         "returnValue": {
@@ -331,6 +1032,7 @@
         ],
         "additionalInfo": "Position of starting at."
     },
+    //TODO: QUEUED, RANDOM, REVERSE, RIGHT, SIGN< SOURCELINE, SPACE< STREAM< STRIP, SUBSTR, SUBWORD, SYMBOL, TIME, TRACE, TRANSLATE, TRUNC, VALUE, VERIFY, WORD< WORDINDEX< WORDLENGTH, WORDPOS, WORDS, XRANGE, X2B, X3C, X2D
     {
         "pattern": "FUNCTION_NAME()",
         "returnValue": {

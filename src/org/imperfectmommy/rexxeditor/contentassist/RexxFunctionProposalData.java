@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 import org.eclipse.jface.text.templates.Template;
 import org.osgi.framework.Bundle;
 
+import com.fasterxml.jackson.annotation.JsonFormat.Feature;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class RexxFunctionProposalData {
@@ -79,6 +81,7 @@ public class RexxFunctionProposalData {
         if (functionMap.isEmpty()) {
             try {
                 ObjectMapper               mapper = new ObjectMapper();
+                mapper.enable(JsonParser.Feature.ALLOW_COMMENTS);
                 Bundle                     bundle = org.eclipse.core.runtime.Platform.getBundle("RexxEditor");
                 URL                        fUrl   = bundle.getEntry("resources/configuration/FunctionDefinitions.json");
                 RexxFunctionProposalData[] data   = mapper.readValue(fUrl.openConnection().getInputStream(), RexxFunctionProposalData[].class);

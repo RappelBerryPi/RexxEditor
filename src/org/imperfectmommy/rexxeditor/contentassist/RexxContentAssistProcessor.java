@@ -40,32 +40,43 @@ public class RexxContentAssistProcessor implements IContentAssistProcessor {
         IDocument document = viewer.getDocument();
         FindReplaceDocumentAdapter adapter = new FindReplaceDocumentAdapter(document);
         String foundString = "";
+        IRegion region2 = null;
         try {
-            IRegion region2 = adapter.find(offset - 1,"\\s", false, false, false, true);
-            foundString = document.get(region2.getOffset() + 1, offset - region2.getOffset() - 1);
+            region2 = adapter.find(offset - 1,"\\s", false, false, false, true);
+            region2 = new Region(region2.getOffset() + 1, region2.getLength());
+            foundString = document.get(region2.getOffset(), offset - region2.getOffset());
         } catch (BadLocationException e1) {
             e1.printStackTrace();
         }
-        final String finalFoundString = foundString;
+        final String finalFoundString = foundString.toUpperCase();
         
         List<RexxCompletionProposal> proposals = new ArrayList<>();
-        String[] functionNames= RexxFunctionProposalData.getFunctionMap().keySet().stream().filter(k -> k.contains(finalFoundString)).sorted().toArray(String[]::new);
+        String[] functionNames= RexxFunctionProposalData.getFunctionMap().keySet().stream().filter(k -> k.startsWith(finalFoundString)).sorted().toArray(String[]::new);
+        TemplateContextType type = new TemplateContextType("TemplateVariableContext");
+        type.addResolver(new TemplateVariableResolver());
+        Image image = null;
+        try {
+            Bundle bundle = org.eclipse.core.runtime.Platform.getBundle("RexxEditor");
+            URL fUrl = bundle.getEntry("icons/function.gif");
+            image = new Image(null, fUrl.openConnection().getInputStream());
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         for (String functionName: functionNames) {
-            proposals.add(buildCompletionProposalFromKey(functionName, viewer, offset));
+            proposals.add(buildCompletionProposalFromKey(functionName, region2, type, image));
         }
         return proposals.toArray(ICompletionProposal[]::new);
     }
 
-    private RexxCompletionProposal buildCompletionProposalFromKey(String string, ITextViewer viewer, int offset) {
+    private RexxCompletionProposal buildCompletionProposalFromKey(String string, IRegion region, TemplateContextType type, Image image) {
         RexxFunctionProposalData data =  RexxFunctionProposalData.getFunctionMap().get(string);
         Template template = data.getTemplate();
-        TemplateContextType type = new TemplateContextType();
-        type.addResolver(new TemplateVariableResolver());
         TemplateContext context = new TemplateContext(type) {
             
             @Override
             public TemplateBuffer evaluate(Template template) throws BadLocationException, TemplateException {
-                TemplateVariable[] templateVariables = new  TemplateVariable[0];
+                TemplateVariable[] templateVariables = new TemplateVariable[0];
                 if (data.getVariables() != null) {
                     templateVariables = Arrays.stream(data.getVariables()).map(var -> var.getVariable()).toArray(TemplateVariable[]::new);
                 }
@@ -77,16 +88,6 @@ public class RexxContentAssistProcessor implements IContentAssistProcessor {
                 return true;
             }
         };
-        IRegion region = new Region(offset - 1 , 1);
-        Image image = null;
-        try {
-            Bundle bundle = org.eclipse.core.runtime.Platform.getBundle("RexxEditor");
-            URL fUrl = bundle.getEntry("icons/function.gif");
-            image = new Image(null, fUrl.openConnection().getInputStream());
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
         return new RexxCompletionProposal(template, context, region, image, 0); 
     }
 
@@ -98,12 +99,12 @@ public class RexxContentAssistProcessor implements IContentAssistProcessor {
 
     @Override
     public char[] getCompletionProposalAutoActivationCharacters() {
-        return "ADP".toCharArray();
+        return "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
     }
 
     @Override
     public char[] getContextInformationAutoActivationCharacters() {
-        return "ADP".toCharArray();
+        return "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
     }
 
     @Override

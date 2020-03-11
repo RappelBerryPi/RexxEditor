@@ -67,13 +67,5 @@ public class ColorManager {
 		return (token != null);
 	}
 
-	public void handlePreferenceStoreChanged(PropertyChangeEvent event) {
-		String prefKey = event.getProperty();
-		Color color = (Color) fColorTable.get(prefKey);
-		if (color != null) {
-			String colorName = preferenceStore.getString(prefKey);
-			color = new Color(Display.getCurrent(), StringConverter
-					.asRGB(colorName));
-		}
-	}
+
 }

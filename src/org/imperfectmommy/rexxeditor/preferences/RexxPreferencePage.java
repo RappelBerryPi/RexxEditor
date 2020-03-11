@@ -92,5 +92,5 @@ public class RexxPreferencePage extends FieldEditorPreferencePage implements
 		
 
 	}
-
+	
 }
