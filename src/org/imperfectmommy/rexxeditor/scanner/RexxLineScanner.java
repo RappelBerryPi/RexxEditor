@@ -11,8 +11,10 @@ import org.eclipse.jface.text.rules.RuleBasedScanner;
 import org.eclipse.jface.text.rules.SingleLineRule;
 import org.eclipse.jface.text.rules.Token;
 import org.eclipse.jface.text.rules.WhitespaceRule;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.util.PropertyChangeEvent;
+import org.imperfectmommy.rexxeditor.Activator;
 import org.imperfectmommy.rexxeditor.contentoutliner.RexxContentElement;
-import org.imperfectmommy.rexxeditor.editors.ColorManager;
 import org.imperfectmommy.rexxeditor.editors.RexxConfiguration;
 import org.imperfectmommy.rexxeditor.scanner.rules.RexxEndLineCommentRule;
 import org.imperfectmommy.rexxeditor.scanner.rules.RexxGeneralWordRule;
@@ -40,13 +42,29 @@ public class RexxLineScanner extends RuleBasedScanner {
     
     //TODO: Figure out why when a character is next to a special character, it turns gray
 
-    public RexxLineScanner(ColorManager manager, RexxConfiguration configuration) {
+    public RexxLineScanner(RexxConfiguration configuration) {
         this.variableList    = new ArrayList<>();
         this.configuration   = configuration;
         this.varMetContainer = new RexxVariableMethodContainer();
-        this.tokenList       = new RexxTokenList(manager);
+        this.tokenList       = new RexxTokenList();
         this.fLine           = new RexxLine(this.tokenList, this.varMetContainer);
+        /*
+        Activator.getActivator().getPreferenceStore().addPropertyChangeListener(new IPropertyChangeListener() {
+            
+            @Override
+            public void propertyChange(PropertyChangeEvent event) {
+                String string = event.getProperty();
+                setTokenList(new RexxTokenList());
+                setRules();
+            }
+        });
+        */
+            
         this.setRules();
+    }
+
+    public void setTokenList(RexxTokenList tokenList) {
+        this.tokenList = tokenList;
     }
 
     @Override
@@ -84,7 +102,6 @@ public class RexxLineScanner extends RuleBasedScanner {
         if (this.fCurrentToken.getToken().isEOF()) {
             if (!this.variableList.equals(this.varMetContainer.getVariableList())) {
                 this.variableList = this.varMetContainer.getVariableList();
-                this.configuration.updateList(this.variableList);
             }
         }
 

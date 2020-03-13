@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
-
    <extension point="org.eclipse.ui.editors">
       <editor
             name="Rexx Editor"
@@ -64,5 +63,13 @@
 	        id="rexxeditor.launchConfigurationTypeImage">
 	    </launchConfigurationTypeImage>
 	</extension>
+	
+	<extension point="org.eclipse.core.runtime.adapters">
+        <factory
+            adaptableType="org.imperfectmommy.rexxeditor.editors.RexxEditor"
+            class="org.imperfectmommy.rexxeditor.contentoutliner.RexxOutlineAdapterFactory">
+        <adapter type="org.eclipse.ui.views.contentoutline.IContentOutlinePage"/>
+        </factory>
+    </extension>
 
 </plugin>

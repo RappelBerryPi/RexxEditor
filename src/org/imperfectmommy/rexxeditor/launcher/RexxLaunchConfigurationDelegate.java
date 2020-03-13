@@ -3,36 +3,18 @@ package org.imperfectmommy.rexxeditor.launcher;
 import java.io.File;
 import java.text.MessageFormat;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
-import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.LaunchConfigurationDelegate;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 
 public class RexxLaunchConfigurationDelegate extends
 		LaunchConfigurationDelegate {
 	private String fRexxRuntime = "";
-	private String fRexxCommand = "";
-	private IProgressMonitor fMonitor;
-	private ILaunchConfiguration fElement;
-	private ILaunch fLaunch;
-	private String fMode;
 	private Process fInferiorProcess;
-	private IProcess fEclipseProcHandle;
-	
 
 	public void launch(ILaunchConfiguration configuration, String mode,
 			ILaunch launch, IProgressMonitor monitor) throws CoreException {
@@ -42,16 +24,10 @@ public class RexxLaunchConfigurationDelegate extends
 			fRexxRuntime = configuration.getAttribute(IRexxLaunchConstants.REXX_LAUNCH_INTERPRETER, "");
 
 			if (monitor == null) {
-				fMonitor = new NullProgressMonitor();
+				new NullProgressMonitor();
 			} 
 			else {
-				fMonitor = monitor;
 			}
-
-			fElement = configuration;
-			fMode = mode;
-			fLaunch = launch;
-			
 
 			monitor.beginTask(MessageFormat.format("Launching {0}...", new String[] {configuration.getName()}), 3); //$NON-NLS-1$
 			if (monitor.isCanceled()) {
@@ -84,7 +60,7 @@ public class RexxLaunchConfigurationDelegate extends
 			fInferiorProcess =
 				DebugPlugin.exec(new String[] {fRexxRuntime, file, params}, fworkingDirectory);
 			
-			fEclipseProcHandle =  DebugPlugin.newProcess(launch,
+			DebugPlugin.newProcess(launch,
 			    fInferiorProcess,"Rexx Session");
 			
 			

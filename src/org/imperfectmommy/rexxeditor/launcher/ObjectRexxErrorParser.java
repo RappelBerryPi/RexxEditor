@@ -13,11 +13,10 @@ public class ObjectRexxErrorParser implements IErrorParser {
 		System.out.print(arg0.substring(7,9));
 		if ( arg0 . startsWith("REX") && arg0.substring(7,9) == "E: ") 
 		{
-			String rexxerr, severitystr , filestr , linestr , message;
+			String severitystr , filestr , linestr , message;
 			StringTokenizer tokenizer = new StringTokenizer(arg0, ":");
 			try 
 			{
-				rexxerr = tokenizer.nextToken(); 
 				severitystr = tokenizer.nextToken(" ").substring(2).trim(); 
 				String running = tokenizer.nextToken("running");
 				System.out.println(running);

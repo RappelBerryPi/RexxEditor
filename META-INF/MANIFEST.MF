@@ -19,8 +19,20 @@ Require-Bundle: org.eclipse.ui,
  com.fasterxml.jackson.core.jackson-core;bundle-version="2.10.3"
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: org.imperfectmommy
-Export-Package: com.fasterxml.jackson.annotation,
+Export-Package: .,
+ com.fasterxml.jackson.annotation,
  com.fasterxml.jackson.core,
+ com.fasterxml.jackson.core.async,
+ com.fasterxml.jackson.core.base,
+ com.fasterxml.jackson.core.exc,
+ com.fasterxml.jackson.core.filter,
+ com.fasterxml.jackson.core.format,
+ com.fasterxml.jackson.core.io,
+ com.fasterxml.jackson.core.json,
+ com.fasterxml.jackson.core.json.async,
+ com.fasterxml.jackson.core.sym,
+ com.fasterxml.jackson.core.type,
+ com.fasterxml.jackson.core.util,
  com.fasterxml.jackson.databind,
  org.imperfectmommy.rexxeditor;
   uses:="org.osgi.framework,

@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import org.eclipse.jface.text.templates.Template;
 import org.osgi.framework.Bundle;
 
-import com.fasterxml.jackson.annotation.JsonFormat.Feature;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

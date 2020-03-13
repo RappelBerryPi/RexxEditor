@@ -212,7 +212,7 @@ public class RexxContentOutlinePage extends ContentOutlinePage implements IDoubl
      */
     public RexxContentOutlinePage(IDocumentProvider provider, ITextEditor editor) {
         super();
-        elementList       = new ArrayList();
+        elementList       = new ArrayList<>();
         fDocumentProvider = provider;
         fTextEditor       = editor;
         String[] cat = new String[4];

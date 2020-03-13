@@ -1,6 +1,5 @@
 package org.imperfectmommy.rexxeditor.scanner.rules;
 
-import java.awt.font.TextAttribute;
 import java.util.HashMap;
 import java.util.Map;
 

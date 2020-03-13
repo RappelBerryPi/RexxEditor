@@ -161,7 +161,6 @@ public class RexxLaunchConfigurationTab extends AbstractLaunchConfigurationTab {
             }
         });
         
-        Label spacer2 = createVerticalSpacer(projComp);
 		gd = new GridData();
 		gd.horizontalSpan = 3;
 		spacer.setLayoutData(gd);
@@ -205,7 +204,6 @@ public class RexxLaunchConfigurationTab extends AbstractLaunchConfigurationTab {
             }
         });
 		
-		Label spacer3 = createVerticalSpacer(projComp);
 			gd = new GridData();
 			gd.horizontalSpan = 3;
 			spacer.setLayoutData(gd);
