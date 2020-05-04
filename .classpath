@@ -19,7 +19,7 @@
 	<classpathentry kind="lib" path="C:/Users/leppa/eclipse/plugins/org.eclipse.ui.genericeditor_1.1.500.v20190823-1613.jar"/>
 	<classpathentry kind="lib" path="C:/Users/leppa/eclipse/plugins/org.eclipse.cdt.core_6.9.0.201909091953.jar"/>
 	<classpathentry kind="lib" path="resources/libaries/commons-text-1.8.jar"/>
-	<classpathentry kind="lib" path="resources/libaries/jackson-core-2.10.3.jar"/>
-	<classpathentry kind="lib" path="resources/libaries/jackson-databind-2.10.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="resources/libaries/jackson-core-2.10.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="resources/libaries/jackson-databind-2.10.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

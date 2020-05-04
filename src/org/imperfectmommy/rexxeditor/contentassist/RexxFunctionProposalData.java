@@ -29,7 +29,8 @@ public class RexxFunctionProposalData {
 
     public Template getTemplate() {
         if (template == null) {
-            this.template = new Template(this.pattern + ": " + this.returnValue.getType(), "builtin: " + this.getAdditionalInfo(), "org.imperfectmommy.rexxeditor.editors.RexxEditor", this.pattern, false);
+            this.template =
+                    new Template(this.pattern + ": " + this.returnValue.getType(), "builtin: " + this.getAdditionalInfo(), "org.imperfectmommy.rexxeditor.editors.RexxEditor", this.pattern, false);
         }
         return template;
     }
@@ -79,13 +80,16 @@ public class RexxFunctionProposalData {
     public static Map<String, RexxFunctionProposalData> getFunctionMap() {
         if (functionMap.isEmpty()) {
             try {
-                ObjectMapper               mapper = new ObjectMapper();
+                ObjectMapper mapper = new ObjectMapper();
                 mapper.enable(JsonParser.Feature.ALLOW_COMMENTS);
-                Bundle                     bundle = org.eclipse.core.runtime.Platform.getBundle("RexxEditor");
-                URL                        fUrl   = bundle.getEntry("resources/configuration/FunctionDefinitions.json");
-                RexxFunctionProposalData[] data   = mapper.readValue(fUrl.openConnection().getInputStream(), RexxFunctionProposalData[].class);
-                for (RexxFunctionProposalData rexxFunctionProposalData : data) {
-                    functionMap.putIfAbsent(rexxFunctionProposalData.pattern, rexxFunctionProposalData);
+                Bundle bundle = org.eclipse.core.runtime.Platform.getBundle("RexxEditor");
+                URL    fUrl   = bundle.getEntry("resources/configuration/FunctionDefinitions.json");
+                if (mapper.canSerialize(RexxFunctionProposalData.class)) {
+                    RexxFunctionProposalData[] data = mapper.readValue(fUrl.openConnection().getInputStream(), RexxFunctionProposalData[].class);
+                    for (RexxFunctionProposalData rexxFunctionProposalData : data) {
+                        functionMap.putIfAbsent(rexxFunctionProposalData.pattern, rexxFunctionProposalData);
+                    }
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();

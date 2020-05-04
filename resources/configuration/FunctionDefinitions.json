@@ -961,7 +961,7 @@
         ],
         "additionalInfo": ""
     },
-    //TODO: C2D, C2X, DATATYPE, DATE, DELSTR, DELWORD, DIGITS< D2C, D2X, ERRORTEXT, FORM, FORMAT, FORMAT (v2), FUZZ, INSERT, LASTPOS, LEFT< LENGTH, LINEIN, Lineout, LINES, MAX, MIN, OVERLAY
+    //TODO: DATE, DELSTR, DELWORD, DIGITS< D2C, D2X, ERRORTEXT, FORM, FORMAT, FORMAT (v2), FUZZ, INSERT, LASTPOS, LEFT< LENGTH, LINEIN, Lineout, LINES, MAX, MIN, OVERLAY
     {
         "pattern": "POS(Needle,Haystack)",
         "returnValue": {
