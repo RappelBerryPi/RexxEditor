@@ -103,6 +103,7 @@ public class RexxKeywordRule extends WordRule {
 
                 if (fDefaultToken.isUndefined()) unreadBuffer(scanner);
 
+                scanner.unread();
                 return fDefaultToken;
             }
         }

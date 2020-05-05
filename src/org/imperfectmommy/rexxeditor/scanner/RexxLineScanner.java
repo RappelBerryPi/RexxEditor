@@ -39,6 +39,7 @@ public class RexxLineScanner extends RuleBasedScanner {
     ArrayList<RexxContentElement> variableList;
 
     RexxConfiguration configuration;
+    private int lastOffset;
     
     //TODO: Figure out why when a character is next to a special character, it turns gray
 
@@ -47,7 +48,8 @@ public class RexxLineScanner extends RuleBasedScanner {
         this.configuration   = configuration;
         this.varMetContainer = new RexxVariableMethodContainer();
         this.tokenList       = new RexxTokenList();
-        this.fLine           = new RexxLine(this.tokenList, this.varMetContainer);
+        this.fLine           = new RexxLine(this.tokenList, this.varMetContainer, this.fDefaultReturnToken);
+        this.lastOffset      = -2;
         /*
         Activator.getActivator().getPreferenceStore().addPropertyChangeListener(new IPropertyChangeListener() {
             
@@ -115,18 +117,20 @@ public class RexxLineScanner extends RuleBasedScanner {
             for (IRule rule : this.fRules) {
                 token = rule.evaluate(this);
                 if (!token.isUndefined()) {
+                    lastOffset = fOffset;
                     return token;
                 }
             }
         }
-        if (this.read() == EOF) {
+        int  cInt = this.read();
+        if (cInt == EOF) {
             return Token.EOF;
         }
         this.unread();
-        char c = (char) this.read();
-        if (c == '\'' || c == '"') {
-            this.unread();
+        if (lastOffset == fOffset) {
+            this.read();
         }
+        lastOffset = fOffset;
         return this.fDefaultReturnToken;
     }
 
@@ -155,25 +159,31 @@ public class RexxLineScanner extends RuleBasedScanner {
         IRule       whitespaceRule    = new WhitespaceRule(new RexxWhitespaceDetector());
         IRule       nestedCommentRule = new RexxNestedCommentRule(this.tokenList.rexxComment);
         IRule       eolCommentRule    = new RexxEndLineCommentRule(this.tokenList.rexxComment);
-        IRule       doubleQuoteRule   = new SingleLineRule("\"", "\"", this.tokenList.rexxTag);
-        IRule       singleQuoteRule   = new SingleLineRule("\"", "\"", this.tokenList.rexxTag);
+        IRule       doubleQuoteRule   = new SingleLineRule("\"", "\"", this.tokenList.rexxTag, (char)0, true);
+        IRule       singleQuoteRule   = new SingleLineRule("\'", "\'", this.tokenList.rexxTag, (char) 0, true);
         IRule       numberRule        = new NumberRule(this.tokenList.rexxComment);
         IRule       newLineRule       = new RexxNewLineRule(this.tokenList.newLine, this.tokenList.symbol);
         IRule       keywordRule       = new RexxKeywordRule(new RexxKeywordDetector(), this.tokenList);
         IRule       symbolRule        = new RexxSymbolRule(this.tokenList);
         IRule       generalRule       = new RexxGeneralWordRule(this.tokenList.word, new RexxKeywordDetector());
         List<IRule> rules             = new ArrayList<>();
-        rules.add(whitespaceRule);
-        rules.add(nestedCommentRule);
-        rules.add(eolCommentRule);
         rules.add(doubleQuoteRule);
         rules.add(singleQuoteRule);
         rules.add(numberRule);
+        rules.add(whitespaceRule);
+        rules.add(nestedCommentRule);
+        rules.add(eolCommentRule);
         rules.add(newLineRule);
         rules.add(keywordRule);
         rules.add(symbolRule);
         rules.add(generalRule);
         this.setRules(rules.toArray(new IRule[0]));
     }
-
+    
+    @Override
+    public void setDefaultReturnToken(IToken defaultReturnToken) {
+        super.setDefaultReturnToken(defaultReturnToken);
+        this.fLine.setDefaultReturnToken(defaultReturnToken);
+    }
+    
 }

@@ -21,7 +21,7 @@ public class RexxGeneralWordRule implements IRule {
             do {
                 c = (char) scanner.read();
             } while (c != ICharacterScanner.EOF && fDetector.isWordPart(c));
-            //include '.' in compoundStems
+            //only unread if it's not a '.' (for compound stems)
             if (c != '.') {
                 scanner.unread();
             }

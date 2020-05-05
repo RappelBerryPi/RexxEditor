@@ -11,18 +11,20 @@ import org.imperfectmommy.rexxeditor.scanner.tokenRules.VariableRule;
 
 public class RexxLine {
     protected ArrayList<RexxToken> fTokenList = new ArrayList<>();
-    protected RexxTokenList tokenList;
-    protected int           fPosition  = 0;
-    IRexxTokenRule          rules[];
+    protected RexxTokenList        tokenList;
+    protected IToken               fDefaultToken;
+    protected int                  fPosition  = 0;
+    IRexxTokenRule                 rules[];
 
-    public RexxLine(RexxTokenList tokenList, RexxVariableMethodContainer varMetContainer) {
-        rules          = new IRexxTokenRule[5];
-        this.tokenList = tokenList;
-        rules[0]       = new KeywordRule(tokenList);
-        rules[1]       = new VariableDefinitionRule(tokenList, varMetContainer);
-        rules[2]       = new MethodRule(tokenList);
-        rules[3]       = new ClassDefinitionRule(tokenList, varMetContainer);
-        rules[4]       = new VariableRule(tokenList, varMetContainer);
+    public RexxLine(RexxTokenList tokenList, RexxVariableMethodContainer varMetContainer, IToken fDefaultToken) {
+        rules              = new IRexxTokenRule[5];
+        this.tokenList     = tokenList;
+        rules[0]           = new KeywordRule(tokenList);
+        rules[1]           = new VariableDefinitionRule(tokenList, varMetContainer);
+        rules[2]           = new MethodRule(tokenList);
+        rules[3]           = new ClassDefinitionRule(tokenList, varMetContainer);
+        rules[4]           = new VariableRule(tokenList, varMetContainer);
+        this.fDefaultToken = fDefaultToken;
     }
 
     public void changeToken(int position, RexxToken token) {
@@ -31,13 +33,15 @@ public class RexxLine {
     }
 
     public void add(RexxToken token) {
-        for (int i = 0; i < rules.length; i++) {
-            RexxToken token2;
-            token2 = rules[i].evaluate(token, this);
-            if (!token2.notExists()) {
-                fTokenList.add(fPosition, token2);
-                fPosition++;
-                return;
+        if (token == fDefaultToken) {
+            for (int i = 0; i < rules.length; i++) {
+                RexxToken token2;
+                token2 = rules[i].evaluate(token, this);
+                if (!token2.notExists()) {
+                    fTokenList.add(fPosition, token2);
+                    fPosition++;
+                    return;
+                }
             }
         }
 
@@ -108,5 +112,9 @@ public class RexxLine {
 
         return result;
     }
-    
+
+    public void setDefaultReturnToken(IToken defaultReturnToken) {
+        this.fDefaultToken = defaultReturnToken;
+    }
+
 }
