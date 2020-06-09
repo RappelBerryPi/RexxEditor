@@ -66,7 +66,8 @@ public class RexxContentAssistProcessor implements IContentAssistProcessor {
         for (String functionName: functionNames) {
             proposals.add(buildCompletionProposalFromKey(functionName, region2, type, image));
         }
-        return proposals.toArray(ICompletionProposal[]::new);
+        ICompletionProposal[] completionProposals = new ICompletionProposal[0];
+        return proposals.toArray(completionProposals);
     }
 
     private RexxCompletionProposal buildCompletionProposalFromKey(String string, IRegion region, TemplateContextType type, Image image) {

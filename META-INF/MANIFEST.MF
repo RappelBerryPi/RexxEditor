@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: RexxEditor Plug-in
 Bundle-SymbolicName: RexxEditor; singleton:=true
-Bundle-Version: 0.2.0
+Bundle-Version: 0.3.1
 Bundle-Activator: org.imperfectmommy.rexxeditor.Activator
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
@@ -12,8 +12,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.workbench.texteditor,
  org.eclipse.ui.ide,
  org.eclipse.ui.views,
- org.eclipse.debug.ui,
- org.eclipse.cdt.core;bundle-version="6.11.0"
+ org.eclipse.debug.ui
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: org.imperfectmommy
 Export-Package: .,
@@ -80,7 +79,7 @@ Export-Package: .,
    org.eclipse.jface.wizard,
    org.eclipse.jface.viewers"
 Automatic-Module-Name: RexxEditor
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: resources/libaries/jackson-core-2.10.3.jar,
  resources/libaries/jackson-databind-2.10.3.jar,
  .,

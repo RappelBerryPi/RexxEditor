@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
-import org.eclipse.jface.resource.ResourceLocator;
+//import org.eclipse.jface.resource.ResourceLocator;
 import org.eclipse.jface.resource.StringConverter;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.texteditor.AbstractTextEditor;
@@ -38,10 +38,10 @@ public class Activator extends AbstractUIPlugin {
      * @return the image descriptor
      */
     public static ImageDescriptor getImageDescriptor(String path) {
-        Optional<ImageDescriptor> opt = ResourceLocator.imageDescriptorFromBundle("RexxEditor", path);
-        if (opt.isPresent()) {
-            return opt.get();
-        }
+        //Optional<ImageDescriptor> opt = ResourceLocator.imageDescriptorFromBundle("RexxEditor", path);
+        //if (opt.isPresent()) {
+        //    return opt.get();
+        //}
         return null;
     }
 
