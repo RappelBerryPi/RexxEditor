@@ -25,6 +25,8 @@ import org.eclipse.jface.text.templates.TemplateException;
 import org.eclipse.jface.text.templates.TemplateVariable;
 import org.eclipse.jface.text.templates.TemplateVariableResolver;
 import org.eclipse.swt.graphics.Image;
+import org.imperfectmommy.rexxeditor.Activator;
+import org.imperfectmommy.rexxeditor.scanner.RexxLineScanner;
 import org.osgi.framework.Bundle;
 
 public class RexxContentAssistProcessor implements IContentAssistProcessor {

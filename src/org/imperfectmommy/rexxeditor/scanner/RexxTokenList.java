@@ -1,12 +1,6 @@
 package org.imperfectmommy.rexxeditor.scanner;
 
-import org.eclipse.jface.resource.StringConverter;
-import org.eclipse.jface.text.TextAttribute;
 import org.eclipse.jface.text.rules.IToken;
-import org.eclipse.jface.text.rules.Token;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.widgets.Display;
-import org.imperfectmommy.rexxeditor.Activator;
 import org.imperfectmommy.rexxeditor.preferences.IRexxPreferenceFields;
 
 public class RexxTokenList {

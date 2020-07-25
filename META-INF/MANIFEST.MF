@@ -4,7 +4,7 @@ Bundle-Name: RexxEditor Plug-in
 Bundle-SymbolicName: RexxEditor; singleton:=true
 Bundle-Version: 0.3.1
 Bundle-Activator: org.imperfectmommy.rexxeditor.Activator
-Bundle-Localization: plugin
+Bundle-Localization: plugin,
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.jface.text,

@@ -16,64 +16,43 @@ public class RexxLaunchConfigurationDelegate extends
 	private String fRexxRuntime = "";
 	private Process fInferiorProcess;
 
-	public void launch(ILaunchConfiguration configuration, String mode,
-			ILaunch launch, IProgressMonitor monitor) throws CoreException {
-		
-		try {
+    public void launch(ILaunchConfiguration configuration, String mode, ILaunch launch, IProgressMonitor monitor) throws CoreException {
 
-			fRexxRuntime = configuration.getAttribute(IRexxLaunchConstants.REXX_LAUNCH_INTERPRETER, "");
+        try {
 
-			if (monitor == null) {
-				new NullProgressMonitor();
-			} 
-			else {
-			}
+            fRexxRuntime = configuration.getAttribute(IRexxLaunchConstants.REXX_LAUNCH_INTERPRETER, "");
 
-			monitor.beginTask(MessageFormat.format("Launching {0}...", new String[] {configuration.getName()}), 3); //$NON-NLS-1$
-			if (monitor.isCanceled()) {
-				
-				return;
-			}
-			String file =
-				configuration.getAttribute(
-					IRexxLaunchConstants.REXX_LAUNCH_STRING_FILE,
-					"");
-			
-			String workingDirectory = 
-				configuration.getAttribute(
-					IRexxLaunchConstants.REXX_LAUNCH_WORKING_DIRECTORY,
-					"");
-			String params = 
-				configuration.getAttribute(
-						IRexxLaunchConstants.REXX_LAUNCH_PARAMETERS, 
-						"");
-					
-			File fworkingDirectory = null;
-			
-			if (workingDirectory != "" && workingDirectory != null) {
-				fworkingDirectory = new File(workingDirectory);
-			}
-			
-					
-			
-			
-			fInferiorProcess =
-				DebugPlugin.exec(new String[] {fRexxRuntime, file, params}, fworkingDirectory);
-			
-			DebugPlugin.newProcess(launch,
-			    fInferiorProcess,"Rexx Session");
-			
-			
+            if (monitor == null) {
+                new NullProgressMonitor();
+            } else {
+            }
 
-			monitor.worked(1);
-		}
-		catch (CoreException e) {
-						
-		}
-		
+            monitor.beginTask(MessageFormat.format("Launching {0}...", configuration.getName()), 3);
+            if (monitor.isCanceled()) {
 
-		
-	}
+                return;
+            }
+            String file = configuration.getAttribute(IRexxLaunchConstants.REXX_LAUNCH_STRING_FILE, "");
+
+            String workingDirectory = configuration.getAttribute(IRexxLaunchConstants.REXX_LAUNCH_WORKING_DIRECTORY, "");
+            String params           = configuration.getAttribute(IRexxLaunchConstants.REXX_LAUNCH_PARAMETERS, "");
+
+            File fworkingDirectory = null;
+
+            if (workingDirectory != "" && workingDirectory != null) {
+                fworkingDirectory = new File(workingDirectory);
+            }
+
+            fInferiorProcess = DebugPlugin.exec(new String[] { fRexxRuntime, file, params }, fworkingDirectory);
+
+            DebugPlugin.newProcess(launch, fInferiorProcess, "Rexx Session");
+
+            monitor.worked(1);
+        } catch (CoreException e) {
+
+        }
+
+    }
 	
 	
 

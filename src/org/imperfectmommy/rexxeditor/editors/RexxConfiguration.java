@@ -19,6 +19,7 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
 import org.imperfectmommy.rexxeditor.Activator;
 import org.imperfectmommy.rexxeditor.contentassist.RexxContentAssistProcessor;
+import org.imperfectmommy.rexxeditor.contentassist.RexxFunctionContentAssistProcessor;
 import org.imperfectmommy.rexxeditor.preferences.IRexxPreferenceFields;
 import org.imperfectmommy.rexxeditor.scanner.RexxLineScanner;
 
@@ -43,7 +44,9 @@ public class RexxConfiguration extends SourceViewerConfiguration {
     public IContentAssistant getContentAssistant(ISourceViewer sourceViewer) {
         ContentAssistant        assistant = new ContentAssistant();
         IContentAssistProcessor processor = new RexxContentAssistProcessor();
+        IContentAssistProcessor processor2 = new RexxFunctionContentAssistProcessor(this.getScanner());
         assistant.setContentAssistProcessor(processor, IDocument.DEFAULT_CONTENT_TYPE);
+        assistant.addContentAssistProcessor(processor2, "Functions");
         assistant.setInformationControlCreator(this.getInformationControlCreator(sourceViewer));
         assistant.enableAutoActivation(true);
         assistant.enableColoredLabels(true);

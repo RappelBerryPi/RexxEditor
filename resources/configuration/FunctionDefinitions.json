@@ -941,6 +941,371 @@
         "additionalInfo": "Type of String."
     },
     {
+        "pattern": "DATE()",
+        "returnValue": {
+            "type": "String",
+            "description": "The current date in the format 'dd Mmm yyyy."
+        },
+        "examples": [
+            "DATE() == '27 Aug 1989'"
+        ],
+        "additionalInfo": "The current Date."
+    },
+    {
+        "pattern": "DATE(Option)",
+        "returnValue": {
+            "type": "String",
+            "description": "The current date in a certain format."
+        },
+        "variables": [
+            {
+                "type": "Char",
+                "defaultValue": "Option",
+                "offsets": [
+                    5
+                ],
+                "variableDescription": "<table> <tr> <th> B </th> <td> - </td> <td> (Base) </td> <td> returns the number of complete days (not including the current day) since and incliuding th base date: 1 Jan 0001.  </td> </tr> <tr> <th> D </th> <td> - </td> <td> (Days) </td> <td> Returns the number of days, including the current day, so far in this year in the format 'ddd' (no leading zeros or blanks) </td> </tr> <tr> <th> E </th> <td> - </td> <td> (European) </td> <td> returns the date in the format 'dd/mm/yy' </td> </tr> <tr> <th> M </th> <td> - </td> <td> (Month) </td> <td> Returns the full English name of the current month, in mixed case.  </td> </tr> <tr> <th> N </th> <td> - </td> <td> (Normal) </td> <td> explicitly returns the date in default format.  </td> </tr> <tr> <th> O </th> <td> - </td> <td> (Ordered) </td> <td> Returns the date in the format 'yy/mm/dd' (suitible for sorting, etc.) </td> </tr> <tr> <th> S </th> <td> - </td> <td> (Standard) </td> <td> Returns the date in the format 'yyyymmdd' (suitible for sorting, etc.) Note that this is one of the three forms recommended for ISO/R 2014-1971 (E).  </td> </tr> <tr> <th> W </th> <td> - </td> <td> (Weekday) </td> <td> Returns the English name for the day of the week, in mixed case.  </td> </tr> </table>"
+            }
+        ],
+        "examples": [
+            "DATE('B') == 726340",
+            "DATE('D') == 239",
+            "DATE('E') == '27/08/89'",
+            "DATE('M') == 'August'",
+            "DATE('N') == '27 Aug 1989'",
+            "DATE('O') == '89/08/27'",
+            "DATE('S') == 19890827",
+            "DATE('U') == '08/27/89'",
+            "DATE('W') == 'Saturday'"
+        ],
+        "additionalInfo": "The Current Date."
+    },
+    {
+        "pattern": "DATE(Option, InputDate, Option)",
+        "returnValue": {
+            "type": "String",
+            "description": "Converts the Date in <span>InputDate</span> formatted in the type of <span> Option </span> 2 to the type of <span> Option </span> 1. Default for Option if unspecified is 'N'."
+        },
+        "variables": [
+            {
+                "type": "Char",
+                "defaultValue": "Option",
+                "offsets": [
+                    5, 24
+                ],
+                "variableDescription": "<table> <tr> <th> B </th> <td> - </td> <td> (Base) </td> <td> returns the number of complete days (not including the current day) since and incliuding th base date: 1 Jan 0001.  </td> </tr> <tr> <th> D </th> <td> - </td> <td> (Days) </td> <td> Returns the number of days, including the current day, so far in this year in the format 'ddd' (no leading zeros or blanks) </td> </tr> <tr> <th> E </th> <td> - </td> <td> (European) </td> <td> returns the date in the format 'dd/mm/yy' </td> </tr> <tr> <th> M </th> <td> - </td> <td> (Month) </td> <td> Returns the full English name of the current month, in mixed case.  </td> </tr> <tr> <th> N </th> <td> - </td> <td> (Normal) </td> <td> explicitly returns the date in default format.  </td> </tr> <tr> <th> O </th> <td> - </td> <td> (Ordered) </td> <td> Returns the date in the format 'yy/mm/dd' (suitible for sorting, etc.) </td> </tr> <tr> <th> S </th> <td> - </td> <td> (Standard) </td> <td> Returns the date in the format 'yyyymmdd' (suitible for sorting, etc.) Note that this is one of the three forms recommended for ISO/R 2014-1971 (E).  </td> </tr> <tr> <th> W </th> <td> - </td> <td> (Weekday) </td> <td> Returns the English name for the day of the week, in mixed case.  </td> </tr> </table>"
+            },
+            {
+                "type": "String",
+                "defaultValue": "InputDate",
+                "offsets": [
+                    13
+                ],
+                "variableDescription": "The date to convert from."
+            }
+        ],
+        "examples": [
+            "DATE('U','25 May 2001')  == '05/25/01'",
+            "DATE('B','25 Sep 2001')  == '730752'",
+            "DATE(,'20020609','S')    == '9 Jun 2002'",
+            "DATE('B','20010925','S') == '730752'"
+        ],
+        "additionalInfo": "Date Conversion."
+    },
+    {
+        "pattern": "DELSTR(String, n)",
+        "returnValue": {
+            "type": "String",
+            "description": "The String returned after deleting all characters from <span> String </span> starting at the <span> n<sup>th</sup></span> character. if <span> n </span> is greater than the length of <span> String </span> then the string is returned unchanged."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "String",
+                "offsets": [
+                    7
+                ],
+                "variableDescription": "The String to be deleted from."
+            },
+            {
+                "type": "Integer",
+                "defaultValue": "n",
+                "offsets": [
+                    15 
+                ],
+                "variableDescription": "The character to start deleting from."
+            }
+        ],
+        "examples": [
+            "DELSTR('abcd', 3) == 'ab'",
+            "DELSTR('abcde', 6) == 'abcde'"
+        ],
+        "additionalInfo": "Delete From String."
+    },
+    {
+        "pattern": "DELSTR(String, n, length)",
+        "returnValue": {
+            "type": "String",
+            "description": "The String returned after deleting all characters from <span> String </span> starting at the <span> n<sup>th</sup></span> character for length <span> length </span>. if <span> n </span> is greater than the length of <span> String </span> then the string is returned unchanged. Additionally, <span> length </span> must be non negative."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "String",
+                "offsets": [
+                    7
+                ],
+                "variableDescription": "The String to be deleted from."
+            },
+            {
+                "type": "Integer",
+                "defaultValue": "n",
+                "offsets": [
+                    15 
+                ],
+                "variableDescription": "The character to start deleting from."
+            },
+            {
+                "type": "Integer",
+                "defaultValue": "length",
+                "offsets": [
+                    18 
+                ],
+                "variableDescription": "The length to delete from the String, starting from <span> n <span>."
+            }
+        ],
+        "examples": [
+            "DELSTR('abcde', 3, 2) == 'abe'"
+        ],
+        "additionalInfo": "Delete From String."
+    },
+    {
+        "pattern": "DELWORD(String, n)",
+        "returnValue": {
+            "type": "String",
+            "description": "The String returned after deleting all words from <span> String </span> starting at the <span> n<sup>th</sup></span> word. if <span> n </span> is greater than the number of words in <span> String </span> then the string is returned unchanged."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "String",
+                "offsets": [
+                    7
+                ],
+                "variableDescription": "The String to be deleted from."
+            },
+            {
+                "type": "Integer",
+                "defaultValue": "n",
+                "offsets": [
+                    15 
+                ],
+                "variableDescription": "The word to start deleting from."
+            }
+        ],
+        "examples": [
+            "DELWORD('Now is the time', 3) == 'Now is '",
+            "DELWORD('Now  time', 5)       == 'Now  time'"
+        ],
+        "additionalInfo": "Delete Words From String."
+    },
+    {
+        "pattern": "DELSTR(String, n, length)",
+        "returnValue": {
+            "type": "String",
+            "description": "The String returned after deleting all words from <span> String </span> starting at the <span> n<sup>th</sup></span> word for <span> length </span> amount of words. if <span> n </span> is greater than the number of words in <span> String </span> then the string is returned unchanged. Additionally, <span> length </span> must be non negative."
+        },
+        "variables": [
+            {
+                "type": "String",
+                "defaultValue": "String",
+                "offsets": [
+                    7
+                ],
+                "variableDescription": "The String to be deleted from."
+            },
+            {
+                "type": "Integer",
+                "defaultValue": "n",
+                "offsets": [
+                    15 
+                ],
+                "variableDescription": "The word to start deleting from."
+            },
+            {
+                "type": "Integer",
+                "defaultValue": "length",
+                "offsets": [
+                    18 
+                ],
+                "variableDescription": "The number of words to delete from the String, starting from <span> n <span>."
+            }
+        ],
+        "examples": [
+            "DELSTR('Now is the  time', 2, 2) == 'Now time'"
+        ],
+        "additionalInfo": "Delete Words From String."
+    },
+    {
+        "pattern": "DIGITS()",
+        "returnValue": {
+            "type": "Integer",
+            "description": "The current setting of NUMERIC DIGITS. See the NUMERIC instruction for more information."
+        },
+        "examples": [
+            "DIGITS() == 9 /* if default */"
+        ],
+        "additionalInfo": "NUMERIC DIGITS Setting."
+    },
+    {
+        "pattern": "D2C(WholeNumber)",
+        "returnValue": {
+            "type": "String",
+            "description": "A Character String of length as needed. <span>WholeNumber</span> must be a non-negative number or an error will result. The result is returned is such that there are no leading '00'x characters."
+        },
+        "variables": [
+            {
+                "type": "Integer",
+                "defaultValue": "WholeNumber",
+                "offsets": [
+                   4
+                ],
+                "variableDescription": "The Whole Number to Convert to the character representation of."
+            }
+        ],
+        "examples": [
+            "D2C(9)   == '09'x",
+            "D2C(129) == '81'x"
+        ],
+        "additionalInfo": "Convert Number to Character String."
+    },
+    {
+        "pattern": "D2C(WholeNumber, N)",
+        "returnValue": {
+            "type": "String",
+            "description": "A Character String of length <span> N </span>. The result is returned to the length specified by <span>N</span> and is sign extended or truncated if necessary."
+        },
+        "variables": [
+            {
+                "type": "Integer",
+                "defaultValue": "WholeNumber",
+                "offsets": [
+                   4
+                ],
+                "variableDescription": "The Whole Number to Convert to the character representation of."
+            },
+            {
+                "type": "Integer",
+                "defaultValue": "N",
+                "offsets": [
+                   17
+                ],
+                "variableDescription": "The Final Length of the <span>return</span> string."
+            }
+        ],
+        "examples": [
+            "D2C(129,1)  == '81'x",
+            "D2C(129,2)  == '0081'x",
+            "D2C(257,1)  == '01'x",
+            "D2C(-127,1) == '81'x",
+            "D2C(-127,2) == 'FF81'x",
+            "D2C(-1,4)   == 'FFFFFFFF'x",
+            "D2C(12,0)   == ''"
+        ],
+        "additionalInfo": "Convert Number to Character String."
+    },
+
+    {
+        "pattern": "D2X(WholeNumber)",
+        "returnValue": {
+            "type": "String",
+            "description": "A Hexadecimal String of length as needed as a hexidecimal representation of the decimal number. <span>WholeNumber</span> must be a non-negative number or an error will result. The result is returned contains 0-9, A-F, and no spaces."
+        },
+        "variables": [
+            {
+                "type": "Integer",
+                "defaultValue": "WholeNumber",
+                "offsets": [
+                   4
+                ],
+                "variableDescription": "The Whole Number to Convert to the hexidecimal representation of."
+            }
+        ],
+        "examples": [
+            "D2X(9)   == '9'",
+            "D2X(129) == '81'"
+        ],
+        "additionalInfo": "Convert Number to a Hexidecimal String."
+    },
+    {
+        "pattern": "D2X(WholeNumber, N)",
+        "returnValue": {
+            "type": "String",
+            "description": "A Hexidecimal String of length <span> N </span>. The result is returned to the length specified by <span>N</span> and is sign extended or truncated if necessary."
+        },
+        "variables": [
+            {
+                "type": "Integer",
+                "defaultValue": "WholeNumber",
+                "offsets": [
+                   4
+                ],
+                "variableDescription": "The Whole Number to Convert to the hexidecimal representation of."
+            },
+            {
+                "type": "Integer",
+                "defaultValue": "N",
+                "offsets": [
+                   17
+                ],
+                "variableDescription": "The Final Length of the <span>return</span> string."
+            }
+        ],
+        "examples": [
+            "D2X(129,1)  == '1'",
+            "D2X(129,2)  == '81'",
+            "D2X(129,4)  == '0081'",
+            "D2X(257,2)  == '01'",
+            "D2X(-127,2) == '81'",
+            "D2X(-127,4) == 'FF81'",
+            "D2X(12,0)   == ''"
+        ],
+        "additionalInfo": "Convert Number to a Hexidecimal String."
+    },
+    {
+        "pattern": "ERRORTEXT(N)",
+        "returnValue": {
+            "type": "String",
+            "description": "The REXX error message associated with the Error Number <span>N</span>."
+        },
+        "variables": [
+            {
+                "type": "Integer",
+                "defaultValue": "N",
+                "offsets": [
+                    10
+                ],
+                "variableDescription": "The Error Number. Must be between 0 and 99. if not defined then the null String is returned."
+            }
+        ],
+        "examples": [
+            "ERRORTEXT(16) == 'Label not found'",
+            "ERRORTEXT(60) == ''"
+        ],
+        "additionalInfo": "Get Error Information"
+    },
+    {
+        "pattern": "FORM()",
+        "returnValue": {
+            "type": "String",
+            "description": "The current setting of NUMERIC FORM."
+        },
+        "examples": [
+            "FORM() == 'SCIENTIFIC' /* if default */"
+        ],
+        "additionalInfo": "NUMERIC FORM Setting."
+    },
+    {
         "pattern": "FUNCTION_NAME()",
         "returnValue": {
             "type": "",
@@ -961,7 +1326,7 @@
         ],
         "additionalInfo": ""
     },
-    //TODO: DATE, DELSTR, DELWORD, DIGITS< D2C, D2X, ERRORTEXT, FORM, FORMAT, FORMAT (v2), FUZZ, INSERT, LASTPOS, LEFT< LENGTH, LINEIN, Lineout, LINES, MAX, MIN, OVERLAY
+    //TODO: FORMAT, FORMAT (v2), FUZZ, INSERT, LASTPOS, LEFT< LENGTH, LINEIN, Lineout, LINES, MAX, MIN, OVERLAY
     {
         "pattern": "POS(Needle,Haystack)",
         "returnValue": {

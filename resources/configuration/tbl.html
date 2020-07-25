@@ -1,44 +1,44 @@
 <table>
     <tr>
         <th>
-            A
-        </th>
-        <td>
-            -
-        </td>
-        <td>
-            (Alphanumeric)
-        </td>
-        <td>
-            Returns 1 if <span>String</span> only contains characters from the ranges 'a-z', 'A-Z', and '0-9'.
-        </td>
-    </tr>
-    <tr>
-        <th>
             B
         </th>
         <td>
             -
         </td>
         <td>
-            (Binary)
+            (Base)
         </td>
         <td>
-            Returns 1 if <span>String</span> only contains the characters '0' and/or '1'.
+            returns the number of complete days (not including the current day) since and incliuding th base date: 1 Jan 0001.
         </td>
     </tr>
     <tr>
         <th>
-            L
+            D
         </th>
         <td>
             -
         </td>
         <td>
-            (lower case)
+            (Days)
         </td>
         <td>
-            Returns 1 if <span>String</span> only contains characters from the range 'a-z'.
+            Returns the number of days, including the current day, so far in this year in the format 'ddd' (no leading zeros or blanks)
+        </td>
+    </tr>
+    <tr>
+        <th>
+            E
+        </th>
+        <td>
+            -
+        </td>
+        <td>
+            (European)
+        </td>
+        <td>
+            returns the date in the format 'dd/mm/yy'
         </td>
     </tr>
     <tr>
@@ -49,10 +49,10 @@
             -
         </td>
         <td>
-            (Mixed Case)
+            (Month)
         </td>
         <td>
-            Returns 1 if <span>String</span> only contains characters from the ranges 'a-z' and 'A-Z'.
+            Returns the full English name of the current month, in mixed case.
         </td>
     </tr>
     <tr>
@@ -63,10 +63,24 @@
             -
         </td>
         <td>
-            (Number)
+            (Normal)
         </td>
         <td>
-            Returns 1 if <span>DATATYPE(String)</span> would return 'NUM'.
+            explicitly returns the date in default format. 
+        </td>
+    </tr>
+    <tr>
+        <th>
+            O
+        </th>
+        <td>
+            -
+        </td>
+        <td>
+            (Ordered)
+        </td>
+        <td>
+            Returns the date in the format 'yy/mm/dd' (suitible for sorting, etc.)
         </td>
     </tr>
     <tr>
@@ -77,25 +91,10 @@
             -
         </td>
         <td>
-            (Symbol)
+            (Standard)
         </td>
         <td>
-            Returns 1 if <span>String</span> only contains characters that are valid in REXX symbols. Note that lower case alphabetics are permitted.
-
-        </td>
-    </tr>
-    <tr>
-        <th>
-            U
-        </th>
-        <td>
-            -
-        </td>
-        <td>
-            (UPPER CASE)
-        </td>
-        <td>
-            Returns 1 if <span>String</span> only contains characters from the range 'A-Z'.
+            Returns the date in the format 'yyyymmdd' (suitible for sorting, etc.) Note that this is one of the three forms recommended for ISO/R 2014-1971 (E).
         </td>
     </tr>
     <tr>
@@ -106,24 +105,10 @@
             -
         </td>
         <td>
-            (Whole Number)
+            (Weekday)
         </td>
         <td>
-            Returns 1 if <span>String</span> is a REXX whole number under the current setting of NUMERIC DIGITS.
-        </td>
-    </tr>
-    <tr>
-        <th>
-            X
-        </th>
-        <td>
-            -
-        </td>
-        <td>
-            (heXadecimal)
-        </td>
-        <td>
-            Returns 1 if <span>String</span> only contains characters from the ranges "a-f', "A-F", "0-9", and blank (so long as blanks only appear between pairs of hexadecimal characters, as usual.) Also returns 1 if <span>String</span> is a null string, which is a valid hexadecimal string.
+            Returns the English name for the day of the week, in mixed case.
         </td>
     </tr>
 </table>

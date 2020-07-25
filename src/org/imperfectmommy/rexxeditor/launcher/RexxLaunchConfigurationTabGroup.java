@@ -4,7 +4,6 @@ import org.eclipse.debug.ui.AbstractLaunchConfigurationTabGroup;
 import org.eclipse.debug.ui.CommonTab;
 import org.eclipse.debug.ui.ILaunchConfigurationDialog;
 import org.eclipse.debug.ui.ILaunchConfigurationTab;
-import org.eclipse.swt.widgets.Text;
 
 public class RexxLaunchConfigurationTabGroup extends
 		AbstractLaunchConfigurationTabGroup {

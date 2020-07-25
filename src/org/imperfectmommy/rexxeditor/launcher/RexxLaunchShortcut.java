@@ -3,16 +3,12 @@ package org.imperfectmommy.rexxeditor.launcher;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.ui.ILaunchShortcut;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
-import org.imperfectmommy.rexxeditor.Activator;
-import org.imperfectmommy.rexxeditor.preferences.IRexxPreferenceFields;
 
 public class RexxLaunchShortcut implements ILaunchShortcut {
 

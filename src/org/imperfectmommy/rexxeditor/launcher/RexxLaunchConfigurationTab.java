@@ -33,7 +33,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
-import org.eclipse.ui.views.navigator.ResourceSorter;
 import org.imperfectmommy.rexxeditor.Activator;
 import org.imperfectmommy.rexxeditor.preferences.IRexxPreferenceFields;
 
@@ -150,7 +149,6 @@ public class RexxLaunchConfigurationTab extends AbstractLaunchConfigurationTab {
                 dialog.setTitle("Select a Rexx file"); 
                 dialog.setMessage("Select a Rexx file to launch:"); 
                 dialog.setInput(ResourcesPlugin.getWorkspace().getRoot()); 
-                dialog.setSorter(new ResourceSorter(ResourceSorter.NAME));
                 if (dialog.open() == IDialogConstants.OK_ID) {
                     IResource resource = (IResource) dialog.getFirstResult();
                     String arg = "";
@@ -190,7 +188,6 @@ public class RexxLaunchConfigurationTab extends AbstractLaunchConfigurationTab {
                 dialog.setTitle("Select a Working Directory"); 
                 dialog.setMessage("Select a Project as Working Directory:"); 
                 dialog.setInput(ResourcesPlugin.getWorkspace().getRoot()); 
-                dialog.setSorter(new ResourceSorter(ResourceSorter.NAME));
                 if (dialog.open() == IDialogConstants.OK_ID) {
                     IResource resource = (IResource) dialog.getFirstResult();
                     String arg = "";
